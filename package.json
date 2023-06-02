@@ -1,0 +1,23 @@
+{
+  "name": "projeto4",
+  "version": "1.0.0",
+  "description": "Aplicação web para o IPT",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2023M2T8-Inteli/Projeto4.git"
+  },
+  "author": "Luan Ramos,Mário Ventura, Rodrigo Sales, Fernando Machado, Eduarda Cardoso, Gabrielly Vitor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2023M2T8-Inteli/Projeto4/issues"
+  },
+  "homepage": "https://github.com/2023M2T8-Inteli/Projeto4#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  }
+}

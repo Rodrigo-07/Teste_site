@@ -1,0 +1,208 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(226, 226, 226);
+    font-family: Arial;
+    height: auto;
+    width: auto;
+    min-height: calc(100% - (10vh));
+
+}
+
+#logo {
+    width: 9%;
+    height: 17%;
+    position: absolute;
+    left: 1vw;
+    top: -3vh;
+}
+
+#navbar ul {
+    list-style: none;
+    background: rgb(60, 60, 60);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    /*border-radius: px;*/
+}
+
+#navbar li {
+    display: inline-block;
+}
+
+#navbar a {
+    text-decoration: none;
+    color: white;
+    width: 170px;
+    display: block;
+    padding: 25px 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+}
+
+#navbar a:hover {
+    background: #3281a0;
+}
+
+#menu_viagem {
+    width: 9.5%;
+}
+
+#menu_vagao {
+    width: 9.5%;
+}
+
+#graficos {
+    position: relative;
+    width: 30%;
+    height: 30%;
+    display: block;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    left: 55px;
+    top: 40px;
+
+}
+
+#select-button {
+    position: relative;
+    top: 30px;
+    left: 55px;
+    display: flex;
+    gap: 423px;
+}
+
+.bselect {
+    padding: 3px 60px;
+    text-transform: uppercase;
+    background: white;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.tabela {
+    position: relative;
+    left: 550px;
+    top: -450px;
+    width: 50%;
+}
+
+
+#tabela {
+    font-size: 20px;
+    position: absolute;
+    left: 28%;
+    top: 27.55%;
+    background-color: rgb(248, 248, 248);
+    text-align: center;
+    border: #040404 1px solid;
+    margin-left: 20%;
+    width: 40%;
+}
+
+td {
+    padding-left: 40px;
+}
+
+th {
+    font-size: 13px;
+    text-align: center;
+    padding-left: 15px;
+}
+
+.graficos {
+    transform: rotate(-90deg);
+    width: 18%;
+    height: 18%;
+    margin-right: 8%;
+    margin-left: 8%;
+}
+
+#grafico_selecionado1 {
+    margin-top: -5%;
+    width: 22%;
+}
+
+#grafico_selecionado2 {
+    margin-top: -13%;
+    width: 22%;
+}
+
+#dropdown {
+    position: relative;
+    padding-top: 2%;
+    left: 2%;
+    display: flex;
+    gap: 1%;
+}
+
+.paragrafo h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1px;
+    position: absolute;
+    top: 0px;
+    margin-left: 2.7%;
+}
+
+.rodape {
+    margin-left: 20%;
+    margin-top: -6%;
+}
+.paragrafo {
+    position: relative;
+    top: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.paragrafo img {
+    margin-right: 10px;
+    position: relative;
+    margin-top: -2%;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.paragrafo p {
+    margin-top: 30px;
+    padding: 3%;
+    text-align: justify;
+}
+
+.footer {
+    background-color:  rgb(60, 60, 60);
+    height: 10vh;
+    width: 100%;
+    max-width: 100%;
+}
+
+.footer p {
+    color: white;
+    margin-left: 20px;
+    position: relative;
+    top: 23px;
+}
+
+
+.footer a img {
+    width: 25px;
+    margin-left: 15px;
+
+}
+.icones{
+    display: flex;
+    position: absolute;
+    left: 1050px;
+    margin-top: -18px;
+
+
+}
+/* ÁREA DE TESTE */
