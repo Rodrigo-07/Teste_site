@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const hostname = '127.0.0.1';
-const port = 3000;
+var port = process.env.PORT || 3000;
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'Banco_de_dados/dbProjeto.db';
 var bodyParser = require('body-parser');
@@ -187,6 +187,6 @@ app.get('/relatorio', (req, res) => {
     res.sendFile(__dirname + '/public/relatorio.html');
 });
 
-app.listen(port, hostname, () => {
-    console.log('Servidor rodando em http://' + hostname + ':' + port);
-});
+app.listen(port, "0.0.0.0", function() {
+    console.log("Listening on Port 3000");
+    });
