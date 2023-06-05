@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const hostname = '127.0.0.1';
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'Banco_de_dados/dbProjeto.db';
 var bodyParser = require('body-parser');
@@ -74,7 +74,7 @@ app.get('/choque2', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     //res.sendFile(__dirname+'/src/Frontend/choques.html');
     var id_choque2 = req.query.id;
-    var sql = `SELECT * FROM Choque2 WHERE id_choque2=${id_choque2}`;
+    var sql = `SELECT * FROM Choque2`;
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
@@ -87,7 +87,7 @@ app.get('/pico', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     //res.sendFile(__dirname+'/src/Frontend/choques.html');
     var id_pico = req.query.id;
-    var sql = `SELECT * FROM Pico WHERE id_pico=${id_pico}`;
+    var sql = `SELECT * FROM Pico`;
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
@@ -187,6 +187,6 @@ app.get('/relatorio', (req, res) => {
     res.sendFile(__dirname + '/public/relatorio.html');
 });
 
-app.listen(port, "0.0.0.0", function() {
-    console.log("Listening on Port 3000");
-    });
+app.listen(port, hostname, () => {
+    console.log('Servidor rodando em http://' + hostname + ':' + port);
+});

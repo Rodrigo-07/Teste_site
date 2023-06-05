@@ -10,20 +10,23 @@ body {
     height: auto;
     width: auto;
     min-height: calc(100% - (10vh));
+    overflow-x: hidden;
+    
 
 }
 
-#logo {
-    width: 9%;
-    height: 17%;
+.logo{
     position: absolute;
-    left: 1vw;
-    top: -3vh;
-}
+    left: 3.5%;
+    top: 0.4%;
+
+    
+
+} 
 
 #navbar ul {
     list-style: none;
-    background: rgb(60, 60, 60);
+    background: rgb(54, 54, 54);
     padding: 0;
     margin: 0;
     text-align: center;
@@ -34,21 +37,28 @@ body {
     display: inline-block;
 }
 
-#navbar a {
+#navbar .botao-nav {
     text-decoration: none;
     color: white;
-    width: 170px;
+    width: 14vw;
     display: block;
-    padding: 25px 10px;
-    font-size: 15px;
+    padding: 13% 3%;
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
+    white-space: nowrap;
 }
 
-#navbar a:hover {
+#navbar-botoes a:hover {
     background: #3281a0;
 }
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 #menu_viagem {
     width: 9.5%;
@@ -142,67 +152,57 @@ th {
     display: flex;
     gap: 1%;
 }
+.conteudo-info{
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    height: 100vh; /* Define a altura da área de visualização */
+    margin: 2%;
+}
+.paragrafo-info, .imagem-info{
+    width: 50%; /* Define a largura desejada para cada div */
+    float: left; /* Faz as divs flutuarem para a esquerda */
 
-.paragrafo h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 1px;
+    
+}
+.paragrafo-info{
+
+    text-align:center;
+    color: black;
+}
+.imagem-info{   
     position: absolute;
-    top: 0px;
-    margin-left: 2.7%;
-}
-
-.rodape {
-    margin-left: 20%;
-    margin-top: -6%;
-}
-.paragrafo {
-    position: relative;
-    top: 30px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.paragrafo img {
-    margin-right: 10px;
-    position: relative;
-    margin-top: -2%;
-    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.4);
-}
-
-
-.paragrafo p {
-    margin-top: 30px;
-    padding: 3%;
-    text-align: justify;
+    left: 50%;
+    text-align: center; /* Centraliza o conteúdo dentro do contêiner */
 }
 
 .footer {
-    background-color:  rgb(60, 60, 60);
-    height: 10vh;
-    width: 100%;
-    max-width: 100%;
-}
-
-.footer p {
-    color: white;
-    margin-left: 20px;
-    position: relative;
-    top: 23px;
-}
-
-
-.footer a img {
-    width: 25px;
-    margin-left: 15px;
-
-}
-.icones{
+    background-color: rgb(60, 60, 60);
+    padding: 2vh;
+  }
+  
+  .footer-conteudo {
     display: flex;
-    position: absolute;
-    left: 1050px;
-    margin-top: -18px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-icones {
+    display: flex;
+  }
+  
+  .footer-info {
+    color: white;
+  }
+  
+  .icon {
+    display: inline-block;
+    max-width: 100%;
+    height: 5.5vh;
+    text-align: center;
+    margin-right: 2vw;
+  }
 
+  
+  
 
-}
 /* ÁREA DE TESTE */
