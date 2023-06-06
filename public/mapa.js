@@ -60,9 +60,20 @@
 //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 // }).addTo(map);
 
+// Variáveis para guardar os valores da seleção de viagem
+var viagem_n = $("#select-viagem").val();
+
+console.log(viagem_n);
+
+$(document).on('change', '#select-viagem', function() {
+    viagem_n = parseInt($("#select-viagem").val());
+    console.log(viagem_n);
+});
+
 // Variáveis para guardar os valores dos checkboxes
 var choque1_url = $("#choque1").val();
 var choque2_url = $("#choque2").val();
+var pico_url = $("#pico").val();
 
 // Função para a coversão de datas no formato Epoch em datas no formato comum
 function date_converter(date_number) {
@@ -91,6 +102,10 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+
+var myRenderer = L.canvas({ padding: 0.5 });
+
+
 const markers = []; // Array para guardar os pontos do mapa
 const latAndlng = []; // Array para guardar as latitudes e longitudes dos pontos
 const polylines = []; // Array para guardar as linhas do mapa
@@ -98,6 +113,10 @@ const polylines = []; // Array para guardar as linhas do mapa
 // CHOQUE 1
 
 $(document).on('change', '.form-check-input', function() { // Detectar alguma mudançã nos checkboxes
+
+    if (viagem_n == "null") {
+        console.log("Selecione uma viagem")
+    }
 
     // Se o checkbox do choque 1 estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#choque1').is(':checked') == true ) {
@@ -111,8 +130,29 @@ $(document).on('change', '.form-check-input', function() { // Detectar alguma mu
             return response.json();
         })
         .then((data) => {
-            
-            var Dados = data;
+            // var Dados = data;
+
+            // Variavel para guardar os dados da viagem selecionada do SQL query do backend
+            var Dados = [];
+
+            // For para filtrar apenas os dados da viagem selecionada
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]["id_viagem"] == parseInt(viagem_n)) {
+                    Dados.push(data[i]);
+                }
+            }
+
+            // Verificar se há dados para a viagem selecionada
+            if (Dados.length == 0 && viagem_n == "null"){
+                alert("Selecione uma viagem");
+
+                // Desmarcar os checkboxes
+                $('#choque1').prop( "checked", false );
+                $('#choque2').prop( "checked", false );
+                $('#pico').prop( "checked", false );
+            } else if (Dados.length == 0) {
+                alert("Não há dados para essa viagem");
+            }
 
             // // Criar o mapa com o centro nos valores da latitudes e longitudes da row do meio dos dados
             var mediana = Math.round(Dados.length / 2);
@@ -222,7 +262,32 @@ $(document).on('change', '.form-check-input', function() {
         })
         .then((data) => {
  
-            let Dados1 = data;
+            // let Dados1 = data;
+
+            // Variavel para guardar os dados da viagem selecionada do SQL query do backend
+            var Dados1 = [];
+
+            // For para filtrar apenas os dados da viagem selecionada
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]["id_viagem"] == parseInt(viagem_n)) {
+                    Dados1.push(data[i]);
+                }
+            }
+
+            // Verificar se há dados para a viagem selecionada
+            if (Dados1.length == 0 && viagem_n == "null"){
+                alert("Selecione uma viagem");
+
+                // Desmarcar os checkboxes
+                $('#choque1').prop( "checked", false );
+                $('#choque2').prop( "checked", false );
+                $('#pico').prop( "checked", false );
+
+            } else if (Dados1.length == 0) {
+                alert("Não há dados para essa viagem");
+            }
+
+            console.log(Dados1);
 
             var mediana = Math.round(Dados1.length / 2);
 
@@ -302,6 +367,12 @@ const markers_pico = []; // Array para guardar os pontos do mapa
 const latAndlng_pico = []; // Array para guardar as latitudes e longitudes dos pontos
 const polylines_pico = []; // Array para guardar as linhas do mapa
 
+var customIcon_pico = L.icon({
+    iconUrl: 'images/marker-icon-orange.png',  // URL to the custom icon image
+    iconSize: [25, 41],  // size of the icon image
+    iconAnchor: [12, 41],  // position of the icon anchor
+  });
+
 // Detectar alguma mudança nos checkboxes
 $(document).on('change', '.form-check-input', function() { 
 
@@ -319,15 +390,47 @@ $(document).on('change', '.form-check-input', function() {
         })
         .then((data) => {
  
-            let Dados_pico = data;
+            // let Dados_pico = data;
+
+            // Variavel para guardar os dados da viagem selecionada do SQL query do backend
+            var Dados_pico = [];
+
+            // For para filtrar apenas os dados da viagem selecionada
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]["id_viagem"] == parseInt(viagem_n)) {
+                    Dados_pico.push(data[i]);
+                }
+            }
+            
+            // Verificar se há dados para a viagem selecionada
+            if (Dados_pico.length == 0 && viagem_n == "null"){
+                alert("Selecione uma viagem");
+
+                // Desmarcar os checkboxes
+                $('#choque1').prop( "checked", false );
+                $('#choque2').prop( "checked", false );
+                $('#pico').prop( "checked", false );
+            } else if (Dados_pico.length == 0) {
+                alert("Não há dados para essa viagem");
+            }
+
+            console.log(Dados_pico);
 
             var mediana = Math.round(Dados_pico.length / 2);
 
             map.flyTo([Dados_pico[mediana]["latitude"], Dados_pico[mediana]["longitude"]], 7);
 
             // Criar os markers no mapa baseados nos pontos do banco de dados 
+            // for (let i = 0; i < Dados_pico.length; i++)
              for (let i = 0; i < Dados_pico.length; i++) {
-                 let marker_pico = L.marker([Dados_pico[i]["latitude"], Dados_pico[i]["longitude"]]).addTo(map);
+                 let marker_pico = L.marker([Dados_pico[i]["latitude"], Dados_pico[i]["longitude"]], { icon: customIcon_pico }).addTo(map);
+
+                // Codigo para criar os circulos com o canvas
+                //  var circleMarker = L.circleMarker([Dados_pico[i]["latitude"], Dados_pico[i]["longitude"]], {
+                //     renderer: myRenderer,
+                //     color: '#3388ff'
+                // }).addTo(map);
+     
          
                  const date_serial_number = Dados_pico[i]["data_hora"];
          
