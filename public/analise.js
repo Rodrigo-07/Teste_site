@@ -1,5 +1,4 @@
 
-console.log("Executando") //Escreve no console a palavra "Executando"
 
 const url = '/info_medias';
 fetch(url)
@@ -9,16 +8,13 @@ fetch(url)
   .then((data) => {
     var Dados = data;
     let saida = '';
-    Dados.map(function (Dados) {
-      //saida += '<strong> '+ `${Dados.max_forca}`+" "+`${Dados.min_forca}`+" "+`${Dados.max_act}`+" "+`${Dados.min_act}`+" "+`${Dados.max_peg}`+" "+`${Dados.min_peg}`+" "+`${Dados.media_valores}`+'</strong>';
-    });
     document.getElementById('tabela').innerHTML = saida;
     const table = document.createElement('table');
     var th = document.createElement('th')
     th.innerHTML = "<td>Max Força  |  </td><td>Min Força  |  </td><td>Max Act  |  </td><td>Min Act  |  </td><td>Max Peg   |  </td><td>Min Peg</td>"
     document.getElementById('tabela').appendChild(th); // Alteração aqui
 
-    for (let line of Dados) {
+    for (let line of Dados) {   //for para criar a tabela indempendente do tamanho do vetor
       const tr = document.createElement('tr');
       let td = document.createElement('td');
       td.innerHTML = line.max_forca;
@@ -60,16 +56,13 @@ fetch('http://127.0.0.1:3000/info_M_Vagoes')
   .then((data) => {
     var Dados = data;
     let saida2 = '';
-    Dados.map(function (Dados) {
-      //saida2 += '<strong> '+ `${Dados.max_forca}`+" "+`${Dados.min_forca}`+" "+`${Dados.max_act}`+" "+`${Dados.min_act}`+" "+`${Dados.max_peg}`+" "+`${Dados.min_peg}`+" "+`${Dados.media_valores}`+'</strong>';
-    });
     document.getElementById('tabela2').innerHTML = saida2;
     const table2 = document.createElement('table');
     var th = document.createElement('th')
     th.innerHTML = "<td>Max Força  |  </td><td>Min Força  |  </td><td>Max Act  |  </td><td>Min Act  |  </td><td>Max Peg   |  </td><td>Min Peg</td>"
     document.getElementById('tabela2').appendChild(th);
 
-    for (let line of Dados) {
+    for (let line of Dados) {  //for para criar a tabela indempendente do tamanho do vetor
       const tr2 = document.createElement('tr');
       let td = document.createElement('td');
       td.innerHTML = line.max_engante;
@@ -103,3 +96,79 @@ fetch('http://127.0.0.1:3000/info_M_Vagoes')
   .catch((error) => {
     console.log(error);
   });
+
+  
+  window.onload = function () {  //espera o carregamento da pagina para executar o codigo
+    const vagao = document.getElementById('menu_vagao');
+    const viagem = document.getElementById('menu_viagem');
+    const graficoSelecionado1 = document.getElementById('grafico_selecionado1');
+    const graficoSelecionado2 = document.getElementById('grafico_selecionado2');
+    viagem.addEventListener('change', () => {
+    const viagemSelecionada = viagem.value;
+    changeViagem(viagemSelecionada);
+    document.getElementById('menu_vagao').value = "VagaoE"
+  });
+
+  function changeViagem(viagem) { //função para mudar os graficos de acordo com a viagem selecionada
+    if (viagem === "Viagem1") {
+      graficoSelecionado1.src = "graficos/Markov - Viagem 1 - E - act.bmp";
+      graficoSelecionado2.src = "graficos/Markov - Viagem 1 - E - forca.bmp";
+
+    } else if (viagem === "Viagem2") {
+      graficoSelecionado1.src = "graficos/Markov -  Viagem 2 - E - act.bmp";
+      graficoSelecionado2.src = "graficos/Markov - Viagem 2 - E - forca.bmp";
+      // ...
+    } else if (viagem === "Viagem3") {
+      graficoSelecionado1.src = "graficos/Markov - Viagem 3 - E - act.bmp";
+      graficoSelecionado2.src = "graficos/Markov - Viagem 3 - E - forca.bmp";
+    } else if (viagem === "Viagem4") {
+      graficoSelecionado1.src = "graficos/Markov - Viagem 4 - E - act.bmp";
+      graficoSelecionado2.src = "graficos/Markov - Viagem 4 - E - forca.bmp";
+    } else if (viagem === "Viagem5") {
+      graficoSelecionado1.src = "graficos/Markov - Viagem 5 - E - act.bmp";
+      graficoSelecionado2.src = "graficos/Markov - Viagem 5 - E - forca.bmp";
+    }
+  }
+
+  viagem.addEventListener('change', () => { //eventlistener para detectar a mudança de viagens
+    const viagemSelecionada = viagem.value;
+    vagao.addEventListener('change', () => {
+      const vagaoSelecionado = vagao.value;
+
+      if (viagemSelecionada === "Viagem1" && vagaoSelecionado === "VagaoE") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 1 - E - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 1 - E - forca.bmp";
+      } else if (viagemSelecionada === "Viagem1" && vagaoSelecionado === "VagaoF") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 1 - F - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 1- F - forca.bmp";
+      } else if (viagemSelecionada === "Viagem2" && vagaoSelecionado === "VagaoE") {
+        graficoSelecionado1.src = "graficos/Markov -  Viagem 2 - E - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 2 - E - forca.bmp";
+      } else if (viagemSelecionada === "Viagem2" && vagaoSelecionado === "VagaoF") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 2 - F - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 2 - F - forca.bmp";
+      } else if (viagemSelecionada === "Viagem3" && vagaoSelecionado === "VagaoE") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 3 - E - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 3 - E - forca.bmp";
+      } else if (viagemSelecionada === "Viagem3" && vagaoSelecionado === "VagaoF") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 3- F - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 3 - F - forca.bmp";
+      } else if (viagemSelecionada === "Viagem4" && vagaoSelecionado === "VagaoE") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 4 - E - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 4 - E - forca.bmp";
+      } else if (viagemSelecionada === "Viagem4" && vagaoSelecionado === "VagaoF") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 4 - F - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 4 - F - forca.bmp";
+      } else if (viagemSelecionada === "Viagem5" && vagaoSelecionado === "VagaoE") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 5 - E - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 5 - E - forca.bmp";
+      } else if (viagemSelecionada === "Viagem5" && vagaoSelecionado === "VagaoF") {
+        graficoSelecionado1.src = "graficos/Markov - Viagem 5 - F - act.bmp";
+        graficoSelecionado2.src = "graficos/Markov - Viagem 5 - F - forca.bmp";
+      } else if (viagemSelecionada === "nada" && vagaoSelecionado === "nada") {
+        graficoSelecionado1.src = "graficos/EmBranco.png";
+        graficoSelecionado2.src = "graficos/EmBranco.png";
+      }
+    });
+  });
+;}

@@ -16,85 +16,64 @@
     <title>Mapa</title>
 </head>
 <body>
-    <nav id="navbar">
+  <nav>
+    <a href="paghome.html" class="link">
+        <img src="images/logoinovtech.png">
+    </a>
+    <div class="mobile-menu">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+    <ul class="nav-list">
+      <li><a href ="info.html">Sobre Nós</a></li>
+      <li><a href = "mapa.html">Mapa</a></li>
+      <li><a href ="analise.html">Análise Geral</a></li>
+      <li><a href ="relatorio.html">Relatório</a></li>
+    </ul>
+  </nav>
+  <script src="navbar.js"></script>
 
-      <div class="logo">
-        <a href="paghome.html">
-        <img src="images/logoinovtech.png" alt="Logo" style="width: 22.5%;">
-        </a>
-      </div>
-
-      <div id="navbar-botoes">
-        <ul>
-          <!--<li><a href ="#">HOME</a></li>--> 
-          <li><a href ="info.html" class="botao-nav">SOBRE NÓS</a></li>
-          <li><a href = "mapa.html" class="botao-nav">MAPA</a></li>
-          <li><a href ="analise.html" class="botao-nav">ANÁLISE DE DADOS</a></li> 
-          <li><a href ="relatorio.html" class="botao-nav">RELATÓRIO</a></li> 
-
-        </ul>
-      </div>
-      
-    </nav>
-
+    
     <!-- Bootstrap select box para selecionar as  viagens-->
-    <select id="select-viagem" class="form-select" aria-label="Default select example">
+     <select id="select-viagem" class="form-select" aria-label="Default select example">
       <option value="null" selected>Escolha a viagem</option>
       <option value="1">Viagem 1</option>
       <option value="2">Viagem 2</option>
       <option value="3">Viagem 3</option>
     </select>
     
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="choque1">
-        <label class="form-check-label" for="flexCheckDefault">
-          Choque 1
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="/choque2" id="choque2">
-        <label class="form-check-label" for="flexCheckChecked">
-          Choque 2
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="/pico" id="pico">
-        <label class="form-check-label" for="flexCheckChecked">
-          Pico
-        </label>
-      </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="" id="choque1">
+      <label class="form-check-label" for="choque1">
+        Choque 1
+      </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="/choque2" id="choque2">
+      <label class="form-check-label" for="choque2">
+        Choque 2
+      </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="/pico" id="pico">
+      <label class="form-check-label" for="pico">
+        Pico
+      </label>
+    </div>
   
   <div id="map" ></div>
 
-  <!-- Bootstrap Modal Choque 1-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Informações Choque 1</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="dbresult">dsddsdsds</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!-- Bootstrap Modal Choque 2 -->
-    <div class="modal fade" id="exampleModal-choque2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Bootstrap Modal Choque 1-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Informações Choque 2</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Informações Choque 1</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div id="dbresult_choque2">dsddsdsds</div>
+            <div id="dbresult">dsddsdsds</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,18 +104,12 @@
 
     <script src="mapa.js"></script>
 
-    <!-- <footer class="footer">
+    <footer class="footer">
       <div class="footer-conteudo">
         <div class="footer-info">
           <p> &copy; IPT - Instituto de Pesquisas Tecnológicas </p>
         </div>
-        <div class="footer-icones">
-          <a href="https://www.instagram.com/ipt_oficial/" target="_blank"><img src="images/instagram.png" class="icon" alt="Instagram IPT"></a>
-          <a href="https://www.linkedin.com/school/iptsp/" target="_blank"><img src="images/linkedin.png" class="icon" alt="Linkedin IPT"></a>
-          <a href="https://www.ipt.br/" target="_blank"><img src="images/siteipt.png" class="icon" alt="Site IPT"></a>
-        </div>
-  
       </div>
-    </footer> -->
+    </footer>
   </body>
 </html>
