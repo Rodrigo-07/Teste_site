@@ -127,11 +127,11 @@ app.get('/relatorio', (req, res) => {
     res.sendFile(__dirname + '/public/relatorio.html');
 }); //mostra o relatório da viagem.
 
-app.listen(port, hostname, () => {
-    console.log('Servidor rodando em http://' + hostname + ':' + port);
-}); //escreve no console o "link" de acesso para a aplicação.
+// app.listen(port, hostname, () => {
+//     console.log('Servidor rodando em http://' + hostname + ':' + port);
+// }); //escreve no console o "link" de acesso para a aplicação.
 
 
-// app.listen(port, "0.0.0.0", function() {
-//     console.log("Listening on Port 3000");
-//     });
+app.listen(port, "0.0.0.0", function() {
+    console.log("Listening on Port 3000");
+    });

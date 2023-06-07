@@ -3,7 +3,6 @@
 
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="images/logoinovtech.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise de Dados</title>
@@ -61,18 +60,91 @@
       <br>
       <img id="grafico_selecionado2" class="graficos" src="graficos/EmBranco.png">
 
+      <script>
+        const vagao = document.getElementById('menu_vagao');
+        const viagem = document.getElementById('menu_viagem');
+        const graficoSelecionado1 = document.getElementById('grafico_selecionado1');
+        const graficoSelecionado2 = document.getElementById('grafico_selecionado2');
 
-  </div>
-  </div>
-  <div id="tabela"></div>
-  <br><br>
-  <div id="tabela2"></div>
+
+        viagem.addEventListener('change', () => {
+          const viagemSelecionada = viagem.value;
+          changeViagem(viagemSelecionada);
+          document.getElementById('menu_vagao').value = "VagaoE"
+        });
+
+        function changeViagem(viagem) {
+          if (viagem === "Viagem1") {
+            graficoSelecionado1.src = "graficos/Markov - Viagem 1 - E - act.bmp";
+            graficoSelecionado2.src = "graficos/Markov - Viagem 1 - E - forca.bmp";
+
+          } else if (viagem === "Viagem2") {
+            graficoSelecionado1.src = "graficos/Markov -  Viagem 2 - E - act.bmp";
+            graficoSelecionado2.src = "graficos/Markov - Viagem 2 - E - forca.bmp";
+            // ...
+          } else if (viagem === "Viagem3") {
+            graficoSelecionado1.src = "graficos/Markov - Viagem 3 - E - act.bmp";
+            graficoSelecionado2.src = "graficos/Markov - Viagem 3 - E - forca.bmp";
+          } else if (viagem === "Viagem4") {
+            graficoSelecionado1.src = "graficos/Markov - Viagem 4 - E - act.bmp";
+            graficoSelecionado2.src = "graficos/Markov - Viagem 4 - E - forca.bmp";
+          } else if (viagem === "Viagem5") {
+            graficoSelecionado1.src = "graficos/Markov - Viagem 5 - E - act.bmp";
+            graficoSelecionado2.src = "graficos/Markov - Viagem 5 - E - forca.bmp";
+          }
+        }
+
+        viagem.addEventListener('change', () => {
+          const viagemSelecionada = viagem.value;
+          vagao.addEventListener('change', () => {
+            const vagaoSelecionado = vagao.value;
+
+            if (viagemSelecionada === "Viagem1" && vagaoSelecionado === "VagaoE") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 1 - E - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 1 - E - forca.bmp";
+            } else if (viagemSelecionada === "Viagem1" && vagaoSelecionado === "VagaoF") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 1 - F - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 1- F - forca.bmp";
+            } else if (viagemSelecionada === "Viagem2" && vagaoSelecionado === "VagaoE") {
+              graficoSelecionado1.src = "graficos/Markov -  Viagem 2 - E - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 2 - E - forca.bmp";
+            } else if (viagemSelecionada === "Viagem2" && vagaoSelecionado === "VagaoF") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 2 - F - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 2 - F - forca.bmp";
+            } else if (viagemSelecionada === "Viagem3" && vagaoSelecionado === "VagaoE") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 3 - E - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 3 - E - forca.bmp";
+            } else if (viagemSelecionada === "Viagem3" && vagaoSelecionado === "VagaoF") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 3- F - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 3 - F - forca.bmp";
+            } else if (viagemSelecionada === "Viagem4" && vagaoSelecionado === "VagaoE") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 4 - E - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 4 - E - forca.bmp";
+            } else if (viagemSelecionada === "Viagem4" && vagaoSelecionado === "VagaoF") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 4 - F - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 4 - F - forca.bmp";
+            } else if (viagemSelecionada === "Viagem5" && vagaoSelecionado === "VagaoE") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 5 - E - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 5 - E - forca.bmp";
+            } else if (viagemSelecionada === "Viagem5" && vagaoSelecionado === "VagaoF") {
+              graficoSelecionado1.src = "graficos/Markov - Viagem 5 - F - act.bmp";
+              graficoSelecionado2.src = "graficos/Markov - Viagem 5 - F - forca.bmp";
+            } else if (viagemSelecionada === "nada" && vagaoSelecionado === "nada") {
+              graficoSelecionado1.src = "graficos/EmBranco.png";
+              graficoSelecionado2.src = "graficos/EmBranco.png";
+            }
+          });
+        });
+      </script>
+    </div>
+    </div>
+    <div id="tabela"></div>
 
     </div>
     <footer class="footer">
       <div class="footer-conteudo">
         <div class="footer-info">
-          <p style="margin-top: 2%;" > &copy; IPT - Instituto de Pesquisas Tecnológicas </p>
+          <p> &copy; IPT - Instituto de Pesquisas Tecnológicas </p>
         </div>
         <div class="footer-icones">
           <a href="https://www.instagram.com/ipt_oficial/" target="_blank"><img src="images/instagram.png" class="icon" alt="Instagram IPT"></a>

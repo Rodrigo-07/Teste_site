@@ -305,7 +305,7 @@ $(document).on('change', '.form-check-input', function() {
                  function openModal() {
                     console.log("modal daora");
                     console.log($('#exampleModal-choque2').modal('show'));
-                     $('#xampleModal_choque2').modal('show');
+                     $('#exampleModal-choque2').modal('show');
                      document.getElementById('dbresult_choque2').innerHTML = `
                          <strong>Ponto</strong><br>
                          Número da viagem: ${Dados1[i]["id_viagem"]}<br>
