@@ -1,0 +1,32 @@
+html, body {
+  height: 100vh;
+  margin: 0; 
+  padding: 0;
+  overflow: hidden;
+}
+
+.map-container {
+  position: relative;
+  height: 80vh; /* Defina a altura desejada, por exemplo, 80% da altura da janela */
+}
+  
+#map {
+  z-index: 0;
+  width: 100vw; /* Ocupa 100% da largura do contêiner */
+  height: 100vh; /* Ocupa 100% da altura do contêiner */
+}
+  
+.map-controls {
+  background-color: rgba(127 123 123 / 0.47);
+  border-radius: 4%;
+  position: absolute;
+  margin-left: calc(100% - 25vw);
+  z-index: 1;
+  float: right;
+  padding-top: 1vh;
+}
+@media (max-width: 999px) {
+  .map-controls {
+    margin-left: calc(100% - 30vw);
+  }
+}

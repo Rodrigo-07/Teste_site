@@ -52,7 +52,7 @@ Aqui encontram-se todas as instruções necessárias para a instalação de todo
 
 1.  Baixar e instalar o node.js:  [https://nodejs.org/pt-br/](https://nodejs.org/pt-br/) (versão 16.15.1 LTS)
 2. Clone o repositório em questão.
-3.  No modo administrador, abra o "prompt de comando" ou o "terminal" e, após,  abra a pasta "src/backend" no diretório raiz do repositório clonado e digite o segundo comando:
+3.  No modo administrador, abra o "prompt de comando" ou o "terminal" e, após,  abra a pasta no diretório raiz do repositório clonado e digite o segundo comando:
 
 ```sh
 npm install
@@ -61,25 +61,13 @@ npm install
 Isso instalará todas as dependências definidas no arquivo <b>package.json</b> que são necessárias para rodar o projeto. Agora o projeto já está pronto para ser modificado. Caso ainda deseje iniciar a aplicação, digite o comando abaixo no terminal:
 
 ```sh
-npm start
+node app.js
 ```
 5. Agora você pode acessar a aplicação através do link http://localhost:1234/
 6. O servidor está online.
 
+OBS: O site também pode ser acessado através desse link: https://j657tr-3000.csb.app/
 
-```
-Alunos inteli (remover essa observação do readme.md após leitura e execução):
-
-1. Certifique-se que há um arquivo "package.json" na pasta backend do projeto.
-
-2. Dentro deste arquivo, encontre a propriedade "scripts", e adicione um atributo de nome "start"
-com o valor "node <CAMINHO_DO_ARQUIVO_DO_SERVIDOR>." Atenção: "<CAMINHO_DO_ARQUIVO_DO_SERVIDOR>" 
-deve ser substituído pelo caminho para o arquivo principal da aplicação, utilizado para subir o
-servidor. Por exemplo, se o arquivo utilizado para subir o servidor é "app.js", o atributo start
-deve possuir o valor "node app.js".
-
-3. No arquivo utilizado para subir a aplicação, defina a porta padrão de execução para "1234".
-````
 
 ## 🗃 Histórico de lançamentos
 

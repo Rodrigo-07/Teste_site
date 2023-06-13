@@ -8,8 +8,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var db = new sqlite3.Database(DBPATH);
-app.use(express.static('public'));
-var vetor = []
+app.use(express.static('public/frontend'));
 
 //variáveis e constantes necessárias para o pleno funcionamento do projeto, além
 //de outras definições.
@@ -18,7 +17,7 @@ var vetor = []
 
 app.get('/', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.sendFile(__dirname + '/public/paghome.html');
+    res.sendFile(__dirname + '/public/frontend/paghome.html');
 }); //define o arquivo paghome como default quando se acessa o url do site, demonstrando-o.
 
 app.get('/analise', (req, res) => {
@@ -44,8 +43,7 @@ app.get('/info_M_Vagoes', (req, res) => {
         if (err) {
             throw err;
         }
-        vetor = rows
-        res.send(vetor)
+        res.send(rows)
     })
 })
 
@@ -127,11 +125,11 @@ app.get('/relatorio', (req, res) => {
     res.sendFile(__dirname + '/public/relatorio.html');
 }); //mostra o relatório da viagem.
 
-// app.listen(port, hostname, () => {
-//     console.log('Servidor rodando em http://' + hostname + ':' + port);
-// }); //escreve no console o "link" de acesso para a aplicação.
+app.listen(port, hostname, () => {
+    console.log('Servidor rodando em http://' + hostname + ':' + port);
+}); //escreve no console o "link" de acesso para a aplicação.
 
 
-app.listen(port, "0.0.0.0", function() {
-    console.log("Listening on Port 3000");
-    });
+// app.listen(port, "0.0.0.0", function() {
+//     console.log("Listening on Port 3000");
+//     });
