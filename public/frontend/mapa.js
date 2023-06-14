@@ -695,9 +695,30 @@ var customIcon_pico = L.icon({
 // });
 }
 
-function teste(){
-    console.log("teste")
-}
+async function downloadImage(imageSrc) {
+    const image = await fetch(imageSrc)
+    const imageBlog = await image.blob()
+    const imageURL = URL.createObjectURL(imageBlog)
+  
+    const link = document.createElement('a')
+    link.href = imageURL
+    link.download = 'mapa'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+L.DomEvent.on(document.getElementById('export-btn'), 'click', function() {
+    leafletImage(map, function(err, canvas) {
+        var img = document.createElement('img');
+        var dimensions = map.getSize();
+        img.width = dimensions.x;
+        img.height = dimensions.y;
+        img.src = canvas.toDataURL();
+        downloadImage(img.src);
+        // window.open("").document.write(img.outerHTML);
+    });
+});
 
 //////////////////////  TESTE DE GRÁFICO //////////////////////	
 
