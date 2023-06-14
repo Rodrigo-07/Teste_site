@@ -57,7 +57,7 @@ fetch(url)
     console.log(error);
   });
 
-  fetch('http://127.0.0.1:3000/info_Vagoes_E')
+  fetch('/info_Vagoes_E')
   .then((response) => {
     return response.json();
   })
@@ -114,7 +114,7 @@ fetch(url)
     console.log(error);
   });
 
-  fetch('http://127.0.0.1:3000/info_Vagoes_F')
+  fetch('/info_Vagoes_F')
   .then((response) => {
     return response.json();
   })
