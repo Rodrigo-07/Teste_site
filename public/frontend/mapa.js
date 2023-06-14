@@ -187,10 +187,42 @@ function buscar_dados() {
                 }
             }
 
-            // if ( $('#vagaoE').is(':checked') == true ) {
-            //     console.log("é foda")
-            // }
+            // Get the selected variable from the user
+            var variavelSelecionada = $("#variableSelection").val();
 
+            // Get the selected value from the user (greater or smaller)
+            var valorSelecionado = $("#valueSelection").val();
+
+            // Get the threshold value entered by the user
+            var limite = parseFloat($("#thresholdValue").val());
+
+            // Filter the data based on the selected variable, value, and threshold
+            Dados = Dados.filter(function(data) {
+                var valorComparartivo;
+
+                // Determine which variable to compare based on the selected variable
+                if (variavelSelecionada === "none") {
+                    return data;
+                } else if (variavelSelecionada === "velocidade") {
+                    valorComparartivo = data.velocidade;
+                } else if (variavelSelecionada === "f_maxima") {
+                    valorComparartivo = data.f_maxima;
+                } else if (variavelSelecionada === "act") {
+                    valorComparartivo = data.act;
+                } else if (variavelSelecionada === "peg") {
+                    valorComparartivo = data.peg;
+                }
+
+                if (valorSelecionado === "greater") {
+                    return valorComparartivo > limite;
+                } else if (valorSelecionado === "smaller") {
+                    return valorComparartivo < limite;
+                }
+            });
+
+            console.log(Dados);
+
+            
             // Verificar se há dados para a viagem selecionada
             if (Dados.length == 0 && viagem_n == "null"){
                 alert("Selecione uma viagem");
@@ -347,6 +379,41 @@ var customIcon = L.icon({
                 }
             }
 
+                // Get the selected variable from the user
+                var variavelSelecionada = $("#variableSelection").val();
+
+                // Get the selected value from the user (greater or smaller)
+                var valorSelecionado = $("#valueSelection").val();
+    
+                // Get the threshold value entered by the user
+                var limite = parseFloat($("#thresholdValue").val());
+    
+                // Filter the data based on the selected variable, value, and threshold
+                Dados1 = Dados1.filter(function(data) {
+                    var valorComparartivo;
+    
+                    // Determine which variable to compare based on the selected variable
+                    if (variavelSelecionada === "none") {
+                        return data;
+                    } else if (variavelSelecionada === "velocidade") {
+                        valorComparartivo = data.velocidade;
+                    } else if (variavelSelecionada === "f_maxima") {
+                        valorComparartivo = data.f_maxima;
+                    } else if (variavelSelecionada === "act") {
+                        valorComparartivo = data.act;
+                    } else if (variavelSelecionada === "peg") {
+                        valorComparartivo = data.peg;
+                    }
+    
+                    if (valorSelecionado === "greater") {
+                        return valorComparartivo > limite;
+                    } else if (valorSelecionado === "smaller") {
+                        return valorComparartivo < limite;
+                    }
+                });
+    
+                console.log(Dados1);
+
             // Verificar se há dados para a viagem selecionada
             if (Dados1.length == 0 && viagem_n == "null"){
                 alert("Selecione uma viagem");
@@ -494,6 +561,44 @@ var customIcon_pico = L.icon({
                     Dados_pico.push(data[i]);
                 }
             }
+
+
+            // Get the selected variable from the user
+            var variavelSelecionada = $("#variableSelection").val();
+
+            // Get the selected value from the user (greater or smaller)
+            var valorSelecionado = $("#valueSelection").val();
+            console.log(valorSelecionado);
+
+            // Get the threshold value entered by the user
+            var limite = parseFloat($("#thresholdValue").val());
+            console.log(limite);
+
+            // Filter the data based on the selected variable, value, and threshold
+            Dados_pico = Dados_pico.filter(function(data) {
+                var valorComparartivo;
+
+                // Determine which variable to compare based on the selected variable
+                if (variavelSelecionada === "none") {
+                    return data;
+                } else if (variavelSelecionada === "velocidade") {
+                    valorComparartivo = data.velocidade;
+                } else if (variavelSelecionada === "f_maxima") {
+                    valorComparartivo = data.f_maxima;
+                } else if (variavelSelecionada === "act") {
+                    valorComparartivo = data.act;
+                } else if (variavelSelecionada === "peg") {
+                    valorComparartivo = data.peg;
+                }
+
+                if (valorSelecionado === "greater") {
+                    return valorComparartivo > limite;
+                } else if (valorSelecionado === "smaller") {
+                    return valorComparartivo < limite;
+                }
+            });
+
+            console.log(Dados_pico);
             
             // Verificar se há dados para a viagem selecionada
             if (Dados_pico.length == 0 && viagem_n == "null"){

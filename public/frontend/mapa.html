@@ -107,19 +107,29 @@
             </label>
           </div>
 
-          <label for="valueSelection">Select Value Condition:</label>
-          <select id="valueSelection">
-            <option value="greater">Greater than</option>
-            <option value="smaller">Smaller than</option>
+            <br>
+
+            <label for="variableSelection">Selecione a variável:</label>
+          <select id="variableSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
+            <option value="none">Nenhuma</option>
+            <option value="velocidade">Velocidade</option>
+            <option value="f_maxima">Força Máxima</option>
+            <option value="act">ACT</option>
+            <option value="peg">PEG</option>
           </select>
 
+          <label for="valueSelection">Selecione a condição:</label>
+        <select id="valueSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
+          <option value="greater">Maior que</option>
+          <option value="smaller">Menor que</option>
+        </select>
 
-          <label for="thresholdValue">Threshold Value:</label>
-          <input type="number" id="thresholdValue" placeholder="Enter threshold value">
+        <label for="thresholdValue">Valor do limite:</label>
+        <input type="number" id="thresholdValue" placeholder="Insira o limite" class="form-control" aria-label="Username" aria-describedby="basic-addon1" style="width: 10vw;">
           
           <br>
 
-          <input class="btn btn-primary" type="submit" value="Buscar" onclick="buscar_dados()">
+        <input class="btn btn-primary" type="submit" value="Buscar" onclick="buscar_dados()">
            
      </div>
   
@@ -182,17 +192,32 @@
       </div>
     </div>
 
+    <div class="legenda" style="width: 22.5vw;">
+      
+      <div class="legenda-item">
+        <img src="images/marker-icon-blue.png" alt="Ícone 1" style="width: 2.5vh;">
+        <span>Choque 1</span>
+        <div class="legenda-rota" style=" background-color: red;"></div>
+      </div>
+
+      <div class="legenda-item">
+        <img src="images/marker-icon-yellow.png" alt="Ícone 2" style="width: 2.5vh;" >
+        <span>Choque 2</span>
+        <div class="legenda-rota"style=" background-color: green;"></div>
+      </div>
+
+      <div class="legenda-item">
+        <img src="images/marker-icon-orange.png" alt="Ícone 3" style="width: 2.5vh;">
+        <span>Pico</span>
+        <div class="legenda-rota" style=" background-color: purple;"></div>
+      </div>
+
+    </div>
       <!--Div that will hold the pie chart-->
       <div id="chart_div"></div>
 
     <script src="mapa.js"></script>
 
-    <!-- <div class="legenda">
-      <img src="images/">
-      <img>
-      <img>
-
-    </div> -->
     
     <!-- <footer class="footer">
       <div class="footer-conteudo">

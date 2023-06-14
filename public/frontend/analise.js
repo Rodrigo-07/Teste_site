@@ -57,7 +57,7 @@ fetch(url)
     console.log(error);
   });
 
-  fetch('http://127.0.0.1:3000/info_M_Vagoes')
+  fetch('http://127.0.0.1:3000/info_Vagoes_E')
   .then((response) => {
     return response.json();
   })
@@ -109,6 +109,63 @@ fetch(url)
     }
     const resultado2 = document.querySelector('#tabela2');
     resultado2.appendChild(table2);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+  fetch('http://127.0.0.1:3000/info_Vagoes_F')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    var Dados = data;
+    let saida3 = '';
+    document.getElementById('tabela3').innerHTML = saida3;
+    const table3 = document.createElement('table');
+    var th = document.createElement('th')
+    th.innerHTML ="<td>Viagem</td>|<td>Max Engate(tf)|  </td><td>Min Engate(tf)|  </td><td>Max Act(mm)|  </td><td>Min Act(mm)|  </td><td>Max PEG(PSI)|  </td><td>Min PEG(PSI)</td>"
+    document.getElementById('tabela3').appendChild(th);
+
+    let i = 1; // move i initialization outside the loop
+
+    for (let line of Dados) {
+      const tr3 = document.createElement('tr'); // create a new row for each record
+
+      let td = document.createElement('td');
+      td.innerHTML = i;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.max_engante;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.min_engante;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.max_act;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.min_act;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.max_peg;
+      tr3.appendChild(td);
+
+      td = document.createElement('td');
+      td.innerHTML = line.min_peg;
+      tr3.appendChild(td);
+
+      table3.appendChild(tr3); // append the row to the table
+
+      i += 1; // increment i
+    }
+    const resultado3 = document.querySelector('#tabela3');
+    resultado3.appendChild(table3);
   })
   .catch((error) => {
     console.log(error);

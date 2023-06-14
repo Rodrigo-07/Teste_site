@@ -36,9 +36,9 @@ app.get('/info_medias', (req, res) => {
     });
 }); //demonstra as arrays contendo os valores medios das viagens quando requisitado.
 
-app.get('/info_M_Vagoes', (req, res) => {
+app.get('/info_Vagoes_E', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    var sql = `SELECT * FROM Resumo_vagoes WHERE tipo_dados="completo"`
+    var sql = `SELECT * FROM Resumo_vagoes WHERE tipo_dados="completo" AND tipo_vagao="E"`
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
@@ -47,6 +47,16 @@ app.get('/info_M_Vagoes', (req, res) => {
     })
 })
 
+app.get('/info_Vagoes_F', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    var sql = `SELECT * FROM Resumo_vagoes WHERE tipo_dados="completo" AND tipo_vagao="F"`
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        res.send(rows)
+    })
+})
 
 app.get('/info', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

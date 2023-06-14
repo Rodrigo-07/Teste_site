@@ -27,6 +27,41 @@ html, body {
 }
 @media (max-width: 999px) {
   .map-controls {
-    margin-left: calc(100% - 30vw);
+    margin-left: calc(100% - vw);
+    display:block;
   }
+
+}
+
+.legenda {
+  background-color: rgba(127 123 123 / 0.47);
+  border-radius: 4%;
+  position: absolute;
+  margin-left: 2.5vh;
+  z-index: 1;
+  float: right;
+  padding-top: 1vh;
+  top: 80%; 
+  white-space:nowrap; 
+}
+
+.legenda-item {
+  z-index: 1;
+  margin: 0.5vw;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.legenda-item img {
+  margin-right: 0.5vw;
+  
+
+}
+
+.legenda-rota{
+  margin-left: 5%;
+  width: 50%;
+  height: 1vh;
+
 }
