@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <!-- define o ícone da página  -->
     <link rel="icon" href="images/logoinovtech.png">
+    <!-- define o título da página -->
     <title>Relatório</title>
     <meta charset="UTF-8">
     <meta name="description" content="Página de apresentação de dados contidos em relatórios do LInE">
     <meta name="keywords" content="IPT, LInE">
+    <!-- define os links do boootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- define o css usado na página  -->
     <link rel="stylesheet" type="text/css" href="visual.css">
+    <!-- define a escala inicial da página  -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
@@ -17,6 +22,8 @@
     
     <header>
       <nav>
+        <!-- define a navbar  -->
+        <!-- define o icone e o link dele na navbar -->
         <a href="paghome.html" class="link">
             <img src="images/logoinovtech.png">
         </a>
@@ -26,16 +33,24 @@
           <div class="line3"></div>
         </div>
         <ul class="nav-list">
+          <!-- define a lista da navbar com seus links  -->
           <li><a href ="info.html">Sobre Nós</a></li>
           <li><a href = "mapa.html">Mapa</a></li>
           <li><a href ="analise.html">Análise Geral</a></li>
-          ''<li><a href ="relatorio.html">Relatório</a></li>
+          <li><a href ="relatorio.html">Relatório</a></li>
+          <a><img src="images/iconeajuda.png" class="icon" style="margin-right: 40px; margin-left: 40px; letter-spacing: 3px; position: relative; top: -0.55vh;" alt="Botão de ajuda" id="helpButton" class="btn btn-danger btn-lg" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Este é o relatório completo gerado pelo IPT."></a>
+          </div>
+          <script>
+            var popover = new bootstrap.Popover(document.getElementById('helpButton'));
+          </script></a></li>
         </ul>
       </nav>
     </header>
+    <!-- define o script que a navbar irá usar  -->
     <script src="navbar.js"></script>
 
     <div style="width: 100vw; height: 100vh;">
+      <!-- define o relatório que irá ser mostrado na página -->
         <embed src="relatorio.pdf" type="application/pdf" width="100%" height="100%" />
     </div>
 

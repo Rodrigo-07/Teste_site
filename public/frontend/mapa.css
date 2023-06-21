@@ -5,32 +5,56 @@ html, body {
   overflow: hidden;
 }
 
-.map-container {
-  position: relative;
-  height: 80vh; /* Defina a altura desejada, por exemplo, 80% da altura da janela */
-}
   
 #map {
   z-index: 0;
   width: 100vw; /* Ocupa 100% da largura do contêiner */
   height: 100vh; /* Ocupa 100% da altura do contêiner */
+  
 }
   
 .map-controls {
-  background-color: rgba(127 123 123 / 0.47);
-  border-radius: 4%;
+  background-color: rgba(255, 255, 255, 0.806);
+  border-radius: 2vh;
   position: absolute;
-  margin-left: calc(100% - 25vw);
+  margin-top: 13vh;
+  margin-left: calc(100% - 26vw);
   z-index: 1;
-  float: right;
   padding-top: 1vh;
+  width: 25vw;
+
+}
+.button-container{
+  background-color: rgba(255, 255, 255, 0.806);
+  box-shadow: 0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5);
+  border: 0px;
+  border-radius: 2vh;
+  position: absolute;
+  margin-top: 13vh;
+  margin-left: calc(100% - 26vw);
+  z-index: 1;
+  width: 25vw;
+  height: 6vh;
+  white-space:nowrap; 
+}
+.seta{
+  position:relative;
+  left:8vw;
 }
 @media (max-width: 999px) {
+
   .map-controls {
     margin-left: calc(100% - vw);
     display:block;
   }
+  .button-container{
+    width: 40vw;
+    margin-left: calc(100% - 42vw);
 
+  }
+  .seta{
+    margin-right: 8vw;
+  }
 }
 
 .legenda {
@@ -59,17 +83,47 @@ html, body {
 
 }
 
-.legenda-rota{
-  margin-left: 5%;
-  width: 50%;
-  height: 1vh;
+#content-botao {
+  display: none;
+}
+.botao-caixa{
+  background-color: rgb(99, 99, 99);
+  color: white;
+  width: 20%;
+  height: 15%;
+  border-radius: 5px;
+  border: 0;
+  margin: 1vh;
+}
+.botao-caixa:hover{
+  color: #046fcd;
+}
+
+.botao-caixa:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.voltar {
+  margin-left: 10vw;
 
 }
 
-#export-btn {
-  position: absolute;
-  top: 90%;
-  right: 20px;
-  padding: 10px;
-  z-index: 1;
+#graficoModal .modal-dialog {
+  max-width: 100%; /* Adjust the max-width as needed */
+  width: 900px; /* Adjust the width as needed */
 }
+
+.axis {
+  display: inline-block;
+  margin-right: 5%;
+}
+
+#myToast {
+  z-index: 5; /* Adjust the z-index value as needed */
+}
+
+/* #graficoModal {
+  width: 9000px;
+} */

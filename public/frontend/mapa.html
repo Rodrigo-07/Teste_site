@@ -19,125 +19,216 @@
     <title>Mapa</title>
 </head>
 <body>
-  <header>
+  <header style="position: fixed;">
     <div >
-      <nav>
-        <a href="paghome.html" class="link">
-            <img src="images/logoinovtech.png">
-        </a>
-        <div class="mobile-menu">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-        <ul class="nav-list">
-          <li><a href ="info.html">Sobre Nós</a></li>
-          <li><a href = "mapa.html">Mapa</a></li>
-          <li><a href ="analise.html">Análise Geral</a></li>
-          <li><a href ="relatorio.html">Relatório</a></li>
-        </ul>
-      </nav>
+          <nav>
+            <a href="paghome.html" class="link">
+                <img src="images/logoinovtech.png">
+            </a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href ="info.html">Sobre Nós</a></li>
+              <li><a href = "mapa.html">Mapa</a></li>
+              <li><a href ="analise.html">Análise Geral</a></li>
+              <li><a href ="relatorio.html">Relatório</a></li>
+              <a><img src="images/iconeajuda.png" class="icon" style="margin-right: 40px; margin-left: 40px; letter-spacing: 3px; position: relative; top: -0.55vh;" alt="Botão de ajuda" id="helpButton" class="btn btn-danger btn-lg" data-bs-toggle="popover" data-bs-placement="top"></a>
+              </div>
+              <script>
+                var popover = new bootstrap.Popover(document.getElementById('helpButton'));
+              </script></a></li>
+            </ul>
+          </nav>
         <script src="navbar.js"></script>
     </div>
 
 
-    <!--Load the AJAX API-->
+    <!--Load the AJAX API of google maps-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   </header>
 
     
     <!-- Bootstrap select box para selecionar as  viagens-->
-     <div class="map-controls">
-       <select id="select-viagem" class="form-select" aria-label="Default select example" style="width: 22.5vw;">
-        <option value="null" selected>Selecione a viagem</option>
-        <option value="1">Viagem 1</option>
-        <option value="2">Viagem 2</option>
-        <option value="3">Viagem 3</option>
-           </select>
-           
-           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" value="" id="choque1" >
-            <label class="form-check-label" for="choque1" data-toggle="tooltip" data-placement="bottom" 
-            title=" O Choque tipo 1 foi definido como:
-            - Janela de 440 ms que será movida em passos de 440 ms do início do sinal até o final do sinal;
-            - Em cada janela, caso a força no tempo final menos força no tempo inicial possua variação maior
-             ou igual a 30 tf será considerado choque;
-            - Em caso de choque, será adotado o tempo e localização do vagão no final da janela.
-            " style=" white-space: nowrap;">
-              Choque 1
-            </label>
-          </div>
-           <div class="form-check form-check-inline" >
-        <input class="form-check-input" type="checkbox" value="/choque2" id="choque2">
-        <label class="form-check-label" for="choque2" data-toggle="tooltip" data-placement="bottom"
-        title="O Choque tipo 2 foi definido como:
-        - Variação de força de pelo menos 30 tf, sendo que esta variação deve incluir o ciclo completo
-        partindo de um valor inicial, aumentando em módulo, pelo menos 30 tf e retornando ao valor
-        inicialmente anotado;
-        - A janela máxima a ser considerada é de 440 milissegundos;
-        - A cada choque encontrado uma nova janela é iniciada, portanto em 440 milissegundos podem
-        ocorrer mais de um choque.
-        " style=" white-space: nowrap;">
-          Choque 2
-        </label>
-           </div>
-           <div class="form-check form-check-inline" >
-        <input class="form-check-input" type="checkbox" value="/pico" id="pico">
-        <label class="form-check-label" for="pico" data-toggle="tooltip" data-placement="bottom"
-        title="O pico diz respeito aos esforços críticos que atendam ao critério:
-        - Para todo o esforço que ultrapassar 136 tf;
-        - Anotar o tempo que o esforço permanece acima de 136 tf;
-        - Indicar o maior esforço encontrado neste período e os demais parâmetros no
-        mesmo instante do maior esforço.
-        " style=" white-space: nowrap;">
-          Pico
-        </label>
-           </div>
-
-          <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="checkbox" value="E" id="vagaoE">
-            <label class="form-check-label" for="vagaoE" data-toggle="tooltip" data-placement="bottom">
-              Vagões E
-            </label>
-          </div>
-
-          <div class="form-check form-check-inline" >
-            <input class="form-check-input" type="checkbox" value="F" id="vagaoF">
-            <label class="form-check-label" for="vagaoF" data-toggle="tooltip" data-placement="bottom">
-              Vagões F
-            </label>
-          </div>
-
-            <br>
-
-            <label for="variableSelection">Selecione a variável:</label>
-          <select id="variableSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
-            <option value="none">Nenhuma</option>
-            <option value="velocidade">Velocidade</option>
-            <option value="f_maxima">Força Máxima</option>
-            <option value="act">ACT</option>
-            <option value="peg">PEG</option>
-          </select>
-
-          <label for="valueSelection">Selecione a condição:</label>
-        <select id="valueSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
-          <option value="greater">Maior que</option>
-          <option value="smaller">Menor que</option>
+    <div id="content-botao">
+      <!-- Conteúdo a ser expandido/retraído -->
+      <div class="map-controls">
+        <select id="select-viagem" class="form-select" aria-label="Default select example">
+         <option value="null" selected>Selecione a viagem</option>
+         <option value="1">Viagem 1</option>
+         <option value="2">Viagem 2</option>
+         <option value="3">Viagem 3</option>
+         <option value="4">Viagem 4</option>
+         <option value="5">Viagem 5</option>
         </select>
-
-        <label for="thresholdValue">Valor do limite:</label>
-        <input type="number" id="thresholdValue" placeholder="Insira o limite" class="form-control" aria-label="Username" aria-describedby="basic-addon1" style="width: 10vw;">
-          
-          <br>
-
-        <input class="btn btn-primary" type="submit" value="Buscar" onclick="buscar_dados()">
+            
+            <div class="form-check form-check-inline">
+             <input class="form-check-input" type="checkbox" value="" id="choque1" >
+             <label class="form-check-label" for="choque1" data-toggle="tooltip" data-placement="bottom" 
+             title=" O Choque tipo 1 foi definido como:
+             - Janela de 440 ms que será movida em passos de 440 ms do início do sinal até o final do sinal;
+             - Em cada janela, caso a força no tempo final menos força no tempo inicial possua variação maior
+              ou igual a 30 tf será considerado choque;
+             - Em caso de choque, será adotado o tempo e localização do vagão no final da janela.
+             " style=" white-space: nowrap;">
+               Choque 1
+             </label>
+           </div>
+            <div class="form-check form-check-inline" >
+         <input class="form-check-input" type="checkbox" value="/choque2" id="choque2">
+         <label class="form-check-label" for="choque2" data-toggle="tooltip" data-placement="bottom"
+         title="O Choque tipo 2 foi definido como:
+         - Variação de força de pelo menos 30 tf, sendo que esta variação deve incluir o ciclo completo
+         partindo de um valor inicial, aumentando em módulo, pelo menos 30 tf e retornando ao valor
+         inicialmente anotado;
+         - A janela máxima a ser considerada é de 440 milissegundos;
+         - A cada choque encontrado uma nova janela é iniciada, portanto em 440 milissegundos podem
+         ocorrer mais de um choque.
+         " style=" white-space: nowrap;">
+           Choque 2
+         </label>
+            </div>
+            <div class="form-check form-check-inline" >
+         <input class="form-check-input" type="checkbox" value="/pico" id="pico">
+         <label class="form-check-label" for="pico" data-toggle="tooltip" data-placement="bottom"
+         title="O pico diz respeito aos esforços críticos que atendam ao critério:
+         - Para todo o esforço que ultrapassar 136 tf;
+         - Anotar o tempo que o esforço permanece acima de 136 tf;
+         - Indicar o maior esforço encontrado neste período e os demais parâmetros no
+         mesmo instante do maior esforço.
+         " style=" white-space: nowrap;">
+           Pico
+         </label>
+            </div>
+  
+           <div class="form-check form-check-inline" >
+             <input class="form-check-input" type="checkbox" value="E" id="vagaoE">
+             <label class="form-check-label" for="vagaoE" data-toggle="tooltip" data-placement="bottom">
+               Vagões E
+             </label>
+           </div>
+  
+           <div class="form-check form-check-inline" >
+             <input class="form-check-input" type="checkbox" value="F" id="vagaoF">
+             <label class="form-check-label" for="vagaoF" data-toggle="tooltip" data-placement="bottom">
+               Vagões F
+             </label>
+           </div>
+  
+             <br>
+  
+             <label for="variableSelection">Selecione a variável:</label>
+           <select id="variableSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
+             <option value="none">Nenhuma</option>
+             <option value="velocidade">Velocidade</option>
+             <option value="f_maxima">Força Máxima</option>
+             <option value="act">ACT</option>
+             <option value="peg">PEG</option>
+           </select>
+  
+           <label for="valueSelection">Selecione a condição:</label>
+         <select id="valueSelection" class="form-select" aria-label="Default select example" style="width: 10vw;">
+           <option value="greater">Maior que</option>
+           <option value="smaller">Menor que</option> 
+         </select>
+  
+         <label for="thresholdValue">Valor do limite:</label>
+         <input type="number" id="thresholdValue" placeholder="Insira o limite" class="form-control" aria-label="Username" aria-describedby="basic-addon1" style="width: 10vw;">
            
-     </div>
+           <br>
+  
+         <input class="botao-caixa" type="submit" value="Buscar" onclick="buscar_dados()">
+         <button class="botao-caixa" id="export-btn">Export</button>
+         <button id="botao-grafico" type="button" class="botao-caixa" data-bs-toggle="modal" data-bs-target="#graficoModal" disabled>Gráficos</button>
+         <!-- <button type="button" class="btn btn-primary" id="showToastBtn">Show Toast</button> -->
+         <button class="voltar" type="submit" style="background: transparent; border: none;">
+        <img src="images/seta_voltar.png"onclick="seta_voltar()" style="width: 4vh;">
+        </button>
+      </div>
+    </div>
+    
+    <button class="button-container" id="toggleButton" onclick="toggleContent()">Buscar
+    <img style="width: 3vh;" src="images/lupa.png">
+    <img class="seta" style="width: 3.5vh;" src="images/flecha_baixo.png"></button>
+    
+    <div class="modal fade" id="modal-tutorial-mapa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Mapa</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Nesse página você podera visualizar o mapa e os pontos do críticos das viagens do seu relatório!</p>
+            <p>
+              Para isso, clique em buscar no canto superior direito e <strong>selecione no mínino a viagem que deseja visualizar, os tipos de pontos críticos e o tipo de vagão. </strong>
+            </p>
+            <p>
+              Além disso, disso você também pode filtrar os pontos críticos por variável, condição e valor limite. Se a variável seleciona for nenhuma, esse filtro personalizado será desconsiderado.
+            </p>
+            <p>
+              Dentro da aba de busca, você também pode exportar a imagem do mapa gerando um arquivo png e gerar gráficos de linhas e dispersão a partir das variáveis que você quiser. 
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Toast para notificar que a exportação começou -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="export-comecou" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Exportação da Imagem</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          A imagem da viagem está sendo exportada. 
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast para notificar que a exportação termiaou -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="export-terminou" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Exportação da Imagem</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Exportação finalizada! &#x2705;
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function seta_voltar(){
+        var elemento = document.getElementById("content-botao");
+        elemento.style.display = "none";
+        var elemento2 = document.getElementById("toggleButton");
+        elemento2.style.display = "block";
+      }
+      function toggleContent() {
+        var contentDiv = document.getElementById("content-botao");
+    
+        if (contentDiv.style.display === "" || contentDiv.style.display === "none") {
+          contentDiv.style.display = "block";
+        } else {
+          contentDiv.style.display = "none";
+        }
+        var elemento2 = document.getElementById("toggleButton");
+        elemento2.style.display = "none";
+      }
+    </script>
   
   <div id="map" ></div>
-
-  <button id="export-btn">Export</button>
 
     <!-- Bootstrap Modal Choque 1-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,6 +287,64 @@
       </div>
     </div>
 
+    <!-- Bootstrap modal para o gráfico -->
+    <div class="modal fade" id="graficoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Grafico</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="selecao-axis">
+              <div class="axis">
+            <label for="variableSelection">X-Axis:</label>
+            <select id="grafico-xAxis" class="form-select" aria-label="Default select example" style="width: 10vw;">
+              <option value="none">Nenhuma</option>
+              <option value="data_hora">Tempo</option>
+              <option value="velocidade">Velocidade</option>
+              <option value="f_maxima">Força Máxima</option>
+              <option value="act">ACT</option>
+              <option value="peg">PEG</option>
+            </select>
+              </div>
+
+            <div class="axis">
+            <label for="variableSelection">Y-Axis:</label>
+            <select id="grafico-yAxis" class="form-select" aria-label="Default select example" style="width: 10vw;">
+              <option value="none">Nenhuma</option>
+              <option value="data_hora">Tempo</option>
+              <option value="velocidade">Velocidade</option>
+              <option value="f_maxima">Força Máxima</option>
+              <option value="act">ACT</option>
+              <option value="peg">PEG</option>
+            </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit" onclick="desenhargrafico()">Submit</button>
+
+          </div>
+
+            
+
+            <br> 
+
+              <!--Div that will hold the pie chart-->
+              <h3>Grafico de linhas</h3>
+              <div id="chart_div" style="width: 100%;"></div>
+              <br>  
+              <h3>Grafico de dispersão</h3>
+              <div id="chart_div2" style="width: 100%;"></div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="legenda" style="width: 22.5vw;">
       
       <div class="legenda-item">
@@ -217,10 +366,8 @@
       </div>
 
     </div>
-      <!--Div that will hold the pie chart-->
-      <div id="chart_div"></div>
 
-    <script src="mapa.js"></script>
+    <script src="mapa.js" ></script>
 
     
     <!-- <footer class="footer">

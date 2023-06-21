@@ -1,68 +1,14 @@
-
-// const map = L.map('map').setView([-23.55680857344921, -46.734749298708394], 16);
-
-// const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 19,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
-
-
-
-// // Ponto que vai receber o modal
-// var point2 = L.marker([-23.55620157344921, -46.734249298708394]).addTo(map);
-
-
-// var oi = "";
-
-// const url = '/choque1All';
-// fetch(url)
-// .then((response) => {
-// return response.json();
-// })
-// .then((data) => {
-// let Dados = data;
-
-// let saida = '';
-// let n_choque = '';
-// let viagem = '';
-// let lat = '';
-// let lon = '';
-// Dados.map(function(Dados) {
-//     viagem = `${Dados.id_viagem}`;
-//     n_choque += `${Dados.id_choque1}`;
-//     // lat = `${Dados.latitude}`;
-//     // lon = `${Dados.longitude}`;
-//     saida += `${Dados.act}`;
-// });
-
-// for(var i = 0; i < Dados.length; i++){
-//     console.log(Dados[i]["id_choque1"])
-//     let modal = L.marker([Dados[i]["latitude"], Dados[i]["longitude"]]).addTo(map).bindPopup(`<b>${Dados[i]["id_choque1"]}</b>`);;
-
-// // Manda os dados colhidos do banco a div que está dentro do modal
-// document.getElementById('dbresult').innerHTML = `<strong>Ponto</strong> <br> Número da viagem: ${viagem} <br> Número do choque: ${[Dados[i]["id_choque1"]]} <br> ACT: ${[Dados[i]["act"]]} <br>`;
-// // É usado o metodo 'on' para detectar o click no ponto e abrir o modal
-// }})
-// .catch(function(error) {
-//     console.log(error);
-// });
-// modal = 
-// modal.on('click', function() {
-//     $('#exampleModal').modal('show');
-// });
-
-
-// Versão nova do código
-
-// const map = L.map('map').setView([-23.55680857344921, -46.734749298708394], 16);
-
-// const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 19,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
-
 // Variáveis para guardar os valores da seleção de viagem
 var viagem_n = $("#select-viagem").val();
+
+$(document).ready(function() {
+    $('#modal-tutorial-mapa').modal('show');
+  });
+
+$('#helpButton').on('click', function() {
+    $('#modal-tutorial-mapa').modal('show');
+});
+
 
 console.log(viagem_n);
 
@@ -95,13 +41,15 @@ function date_converter(date_number) {
 }
 
 // Inicar o mapa
-// TODO: pensar em um jeito de inicar a visualização do mapa onde estão pontos do banco de dados
-const map = L.map('map').setView([-23.55680857344921, -46.734749298708394], 16);
+const map = L.map('map').setView([-11.049041, -49.833081], 3.5);
 
 const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+map.zoomControl.remove();
 
 
 var myRenderer = L.canvas({ padding: 0.5 });
@@ -124,8 +72,17 @@ const polylines_pico = []; // Array para guardar as linhas do mapa
 
 var dados_completo = [];
 
-// $(document).on('change', '.form-check-input', function() { // Detectar alguma mudançã nos checkboxes
+
+// Função para buscar os dados do banco de dados
 function buscar_dados() {
+
+    // Habilitar o botão de gerar gráfico
+    $('#botao-grafico').prop('disabled', false);
+
+    dados_completosplice = dados_completo.splice(0);
+    // for (var l = 0; l < markers.length; l++) {
+    //     map.removeLayer(markers[j]);
+    // }
 
     // Remover os markers do mapa
     for (var j = 0; j < markers.length; j++) {
@@ -157,6 +114,7 @@ function buscar_dados() {
 
             var vagoes_selecionados = "";
 
+            // Verificar quais checkboxes estão marcados para fitrar os dados por tipo de vagão
             if ($('#vagaoE').is(':checked') == true && $('#vagaoF').is(':checked') == true) {
                 vagoes_selecionados = "vagoesE e vagoesF";
             } else if ($('#vagaoF').is(':checked') == true) {
@@ -167,9 +125,7 @@ function buscar_dados() {
 
             console.log(vagoes_selecionados);
 
-            // var Dados = data;
-
-            dados_completo = data;
+            // dados_completo = data;
 
             // desenhargrafico();
 
@@ -219,6 +175,10 @@ function buscar_dados() {
                     return valorComparartivo < limite;
                 }
             });
+            
+            for (let i = 0; i < Dados.length; i++) {
+                dados_completo.push(Dados[i]);
+            }
 
             console.log(Dados);
 
@@ -240,13 +200,6 @@ function buscar_dados() {
 
             map.flyTo([Dados[mediana]["latitude"], Dados[mediana]["longitude"]], 7);
 
-
-            // // Inciar o mapa com o API do Leaflet
-            // const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            //     maxZoom: 19,
-            //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            // }).addTo(map);
-
         // Criar os markers no mapa baseados nos pontos do banco de dados 
             for (let i = 0; i < Dados.length; i++) {
                 var marker = L.marker([Dados[i]["latitude"], Dados[i]["longitude"]]).addTo(map);
@@ -266,13 +219,13 @@ function buscar_dados() {
 
                         Tipo vagão: ${Dados[i]["tipo_vagao"]}<br>
                         Data e hora: ${final_date}<br>
-                        Velocidade: ${Dados[i]["velocidade"]}<br>
-                        Posição: ${Dados[i]["posicao"]}<br>
+                        Velocidade: ${Dados[i]["velocidade"].toFixed(2)} km/h<br>
+                        Posição: ${Dados[i]["posicao"].toFixed(2)} km<br>
                         Placa virtual: ${Dados[i]["placa_virtual"]}<br>
                         Trecho: ${Dados[i]["trecho"]}<br>
-                        Força Maxima: ${Dados[i]["f_maxima"]}<br>
-                        ACT: ${Dados[i]["act"]}<br>
-                        Peg: ${Dados[i]["peg"]}<br>
+                        Força Maxima: ${Dados[i]["f_maxima"].toFixed(2)} tf<br>
+                        ACT: ${Dados[i]["act"].toFixed(2)} mm<br>
+                        Peg: ${Dados[i]["peg"].toFixed(2)} PSI<br>
                     `;
                 }
 
@@ -313,16 +266,15 @@ function buscar_dados() {
             map.removeLayer(polylines[k]);
         }
     }
-
-
+    
 
 // CHOQUE 2
 
-// Define a custom icon with a different color
+// Define um diferente ícone para os markers
 var customIcon = L.icon({
-    iconUrl: 'images/marker-icon-yellow.png',  // URL to the custom icon image
-    iconSize: [25, 41],  // size of the icon image
-    iconAnchor: [12, 41],  // position of the icon anchor
+    iconUrl: 'images/marker-icon-yellow.png',  // URL da imagem
+    iconSize: [25, 41],  // Mudnaça do tamanho da ícone
+    iconAnchor: [12, 41],  // posição da ancora do ícone
   });
   
 
@@ -355,6 +307,7 @@ var customIcon = L.icon({
             
             var vagoes_selecionados = "";
 
+            // Verificar quais checkboxes estão marcados para fitrar os dados por tipo de vagão
             if ($('#vagaoE').is(':checked') == true && $('#vagaoF').is(':checked') == true) {
                 vagoes_selecionados = "vagoesE e vagoesF";
             } else if ($('#vagaoF').is(':checked') == true) {
@@ -363,7 +316,6 @@ var customIcon = L.icon({
                 vagoes_selecionados = "E";
             }
  
-            // let Dados1 = data;
 
             // Variavel para guardar os dados da viagem selecionada do SQL query do backend
             var Dados1 = [];
@@ -379,20 +331,20 @@ var customIcon = L.icon({
                 }
             }
 
-                // Get the selected variable from the user
+                // Obtenha a variável selecionada do usuário
                 var variavelSelecionada = $("#variableSelection").val();
 
-                // Get the selected value from the user (greater or smaller)
+                // Obtém o valor selecionado do usuário (maior ou menor)
                 var valorSelecionado = $("#valueSelection").val();
     
-                // Get the threshold value entered by the user
+                // Obtém o valor limite inserido pelo usuário
                 var limite = parseFloat($("#thresholdValue").val());
     
-                // Filter the data based on the selected variable, value, and threshold
+                // Filtre os dados com base na variável, valor e limite selecionados
                 Dados1 = Dados1.filter(function(data) {
                     var valorComparartivo;
     
-                    // Determine which variable to compare based on the selected variable
+                    // Determine qual variável comparar com base na variável selecionada
                     if (variavelSelecionada === "none") {
                         return data;
                     } else if (variavelSelecionada === "velocidade") {
@@ -411,7 +363,11 @@ var customIcon = L.icon({
                         return valorComparartivo < limite;
                     }
                 });
-    
+                
+                for (let i = 0; i < Dados1.length; i++) {
+                    dados_completo.push(Dados1[i]);
+                }
+
                 console.log(Dados1);
 
             // Verificar se há dados para a viagem selecionada
@@ -429,6 +385,7 @@ var customIcon = L.icon({
 
             console.log(Dados1);
 
+            // Criar o mapa com o centro nos valores da latitudes e longitudes da row do meio dos dados
             var mediana = Math.round(Dados1.length / 2);
 
             map.flyTo([Dados1[mediana]["latitude"], Dados1[mediana]["longitude"]], 7);
@@ -453,13 +410,13 @@ var customIcon = L.icon({
          
                          Tipo vagão: ${Dados1[i]["tipo_vagao"]}<br>
                          Data e hora: ${final_date}<br>
-                         Velocidade: ${Dados1[i]["velocidade"]}<br>
-                         Posição: ${Dados1[i]["posicao"]}<br>
+                         Velocidade: ${Dados1[i]["velocidade"].toFixed(2)} km/h<br>
+                         Posição: ${Dados1[i]["posicao"].toFixed(2)} km<br>
                          Placa virtual: ${Dados1[i]["placa_virtual"]}<br>
                          Trecho: ${Dados1[i]["trecho"]}<br>
-                         Força Maxima: ${Dados1[i]["f_maxima"]}<br>
-                         ACT: ${Dados1[i]["act"]}<br>
-                         Peg: ${Dados1[i]["peg"]}<br>
+                         Força Maxima: ${Dados1[i]["f_maxima"].toFixed(2)} tf<br>
+                         ACT: ${Dados1[i]["act"].toFixed(2)} mm<br>
+                         Peg: ${Dados1[i]["peg"].toFixed(2)} PSI<br>
                      `;
                  }
          
@@ -501,8 +458,6 @@ var customIcon = L.icon({
 // });
 
 // PICOS
-
-
     // Remover os markers do mapa
     for (var j = 0; j < markers_pico.length; j++) {
         map.removeLayer(markers_pico[j]);
@@ -513,15 +468,14 @@ var customIcon = L.icon({
         map.removeLayer(polylines_pico[k]);
     }
 
-var customIcon_pico = L.icon({
-    iconUrl: 'images/marker-icon-orange.png',  // URL to the custom icon image
-    iconSize: [25, 41],  // size of the icon image
-    iconAnchor: [12, 41],  // position of the icon anchor
-  });
+    // Define um diferente ícone para os markers
+    var customIcon_pico = L.icon({
+        iconUrl: 'images/marker-icon-orange.png',  // URL da imagem
+        iconSize: [25, 41],  // Mudnaça do tamanho da ícone
+        iconAnchor: [12, 41],  // Posição da ancora do ícone
+    });
 
 // Detectar alguma mudança nos checkboxes
-// $(document).on('change', '.form-check-input', function() { 
-
     // Se o checkbox do pico estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#pico').is(':checked') == true ) {
 
@@ -538,6 +492,7 @@ var customIcon_pico = L.icon({
 
             var vagoes_selecionados = "";
 
+           // Verificar quais checkboxes estão marcados para fitrar os dados por tipo de vagão 
             if ($('#vagaoE').is(':checked') == true && $('#vagaoF').is(':checked') == true) {
                 vagoes_selecionados = "vagoesE e vagoesF";
             } else if ($('#vagaoF').is(':checked') == true) {
@@ -563,22 +518,22 @@ var customIcon_pico = L.icon({
             }
 
 
-            // Get the selected variable from the user
+            // Obtenha a variável selecionada do usuário
             var variavelSelecionada = $("#variableSelection").val();
 
-            // Get the selected value from the user (greater or smaller)
+            // Obtém o valor selecionado do usuário (maior ou menor)
             var valorSelecionado = $("#valueSelection").val();
             console.log(valorSelecionado);
 
-            // Get the threshold value entered by the user
+            // Obtém o valor limite inserido pelo usuário
             var limite = parseFloat($("#thresholdValue").val());
             console.log(limite);
 
-            // Filter the data based on the selected variable, value, and threshold
+            // Filtre os dados com base na variável, valor e limite selecionados
             Dados_pico = Dados_pico.filter(function(data) {
                 var valorComparartivo;
 
-                // Determine which variable to compare based on the selected variable
+                // Determine qual variável comparar com base na variável selecionada
                 if (variavelSelecionada === "none") {
                     return data;
                 } else if (variavelSelecionada === "velocidade") {
@@ -598,6 +553,10 @@ var customIcon_pico = L.icon({
                 }
             });
 
+            for (let i = 0; i < Dados_pico.length; i++) {
+                dados_completo.push(Dados_pico[i]);
+            }
+
             console.log(Dados_pico);
             
             // Verificar se há dados para a viagem selecionada
@@ -614,6 +573,7 @@ var customIcon_pico = L.icon({
 
             console.log(Dados_pico);
 
+            // Criar o mapa com o centro nos valores da latitudes e longitudes da row do meio dos dados
             var mediana = Math.round(Dados_pico.length / 2);
 
             map.flyTo([Dados_pico[mediana]["latitude"], Dados_pico[mediana]["longitude"]], 7);
@@ -623,13 +583,6 @@ var customIcon_pico = L.icon({
              for (let i = 0; i < Dados_pico.length; i++) {
                  let marker_pico = L.marker([Dados_pico[i]["latitude"], Dados_pico[i]["longitude"]], { icon: customIcon_pico }).addTo(map);
 
-                // Codigo para criar os circulos com o canvas
-                //  var circleMarker = L.circleMarker([Dados_pico[i]["latitude"], Dados_pico[i]["longitude"]], {
-                //     renderer: myRenderer,
-                //     color: '#3388ff'
-                // }).addTo(map);
-     
-         
                  const date_serial_number = Dados_pico[i]["data_hora"];
          
                  const final_date = date_converter(date_serial_number); 
@@ -646,14 +599,14 @@ var customIcon_pico = L.icon({
          
                          Tipo vagão: ${Dados_pico[i]["tipo_vagao"]}<br>
                          Data e hora: ${final_date}<br>
-                         Velocidade: ${Dados_pico[i]["velocidade"]}<br>
-                         Posição: ${Dados_pico[i]["posicao"]}<br>
+                         Velocidade: ${Dados_pico[i]["velocidade"].toFixed(2)} km/h<br>
+                         Posição: ${Dados_pico[i]["posicao"].toFixed(2)} km<br>
                          Placa virtual: ${Dados_pico[i]["placa_virtual"]}<br>
                          Trecho: ${Dados_pico[i]["trecho"]}<br>
-                         Engate: ${Dados_pico[i]["engate"]}<br>
-                         Delta: ${Dados_pico[i]["delta"]}<br>
-                         ACT: ${Dados_pico[i]["act"]}<br>
-                         Peg: ${Dados_pico[i]["peg"]}<br>
+                         Engate: ${Dados_pico[i]["engate"].toFixed(2)} tf<br>
+                         Delta: ${Dados_pico[i]["delta"].toFixed(2)} T(s)<br>
+                         ACT: ${Dados_pico[i]["act"].toFixed(2)} mm<br>
+                         Peg: ${Dados_pico[i]["peg"].toFixed(2)} PSI<br>
                      `;
                  }
          
@@ -695,100 +648,152 @@ var customIcon_pico = L.icon({
 // });
 }
 
+// Função para baixar uma imagem do mapa
 async function downloadImage(imageSrc) {
+    // Pega a imagem gerada pelo leaflet-image
     const image = await fetch(imageSrc)
+
+    // Converte a imagem para blob
     const imageBlog = await image.blob()
+
+    // Cria um URL para a imagem
     const imageURL = URL.createObjectURL(imageBlog)
-  
+    
+    // Cria um link para baixar a imagem
     const link = document.createElement('a')
     link.href = imageURL
     link.download = 'mapa'
     document.body.appendChild(link)
+
+    // Clica no link para baixar a imagem
     link.click()
     document.body.removeChild(link)
+    $('#export-terminou').toast('show');
+    console.log("downloaded")
   }
 
 L.DomEvent.on(document.getElementById('export-btn'), 'click', function() {
+    $('#export-comecou').toast('show');
+    // Função para gerar a imagem do mapa
     leafletImage(map, function(err, canvas) {
+        // Cria um elemento de imagem e define a largura e altura para o tamanho da imagem do mapa
         var img = document.createElement('img');
         var dimensions = map.getSize();
         img.width = dimensions.x;
         img.height = dimensions.y;
         img.src = canvas.toDataURL();
+
+        // Chama a função para baixar a imagem gerada
         downloadImage(img.src);
         // window.open("").document.write(img.outerHTML);
     });
 });
 
-//////////////////////  TESTE DE GRÁFICO //////////////////////	
+$('#showToastBtn').click(function() {
+    console.log("toast")
+    $('#liveToast').toast('show');
+  });
 
-// function desenhargrafico() {
-//     // Load the Visualization API and the corechart package.
-//     google.charts.load('current', {packages: ['corechart', 'line']});
+////////////////////// GRÁFICO //////////////////////	
 
-//     // Set a callback to run when the Google Visualization API is loaded.
-//     google.charts.setOnLoadCallback(drawChart);
+function desenhargrafico() {
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {packages: ['corechart', 'line']});
 
-//     // Callback that creates and populates a data table,
-//     // instantiates the pie chart, passes in the data and
-//     // draws it.
-//     function drawChart() {
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
 
-//         var dados_grafico = [];
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
 
-//         console.log(dados_completo)
+        var xAxis = $("#grafico-xAxis").val();
+        var yAxis = $("#grafico-yAxis").val();
 
-//         for (var i = 0; i < dados_completo.length; i++) {
+        console.log(xAxis);
+        console.log(yAxis);
 
-//             const date_serial_number = dados_completo[i]["data_hora"];
-         
-//             const final_date = date_converter(date_serial_number); 
+        var dados_grafico = [];
 
-//             dados_grafico.push([new Date(final_date), dados_completo[i]["act"]]);
-//         }
+        console.log(dados_completo)
 
-//         console.log(dados_grafico)
+        for (var i = 0; i < dados_completo.length; i++) {
+            console.log("Teste")
+
+            if (xAxis == "data_hora" || yAxis == "data_hora") {
+                const date_serial_number = dados_completo[i]["data_hora"];
+                const final_date = date_converter(date_serial_number); 
+                dados_grafico.push([new Date(final_date), dados_completo[i][`${yAxis}`]]);
+            } else {
+                dados_grafico.push([dados_completo[i][`${xAxis}`], dados_completo[i][`${yAxis}`]]);
+            }
+          
+
+            // dados_grafico.push([new Date(final_date), dados_completo[i]["act"]]);
+            // console.log(dados_completo[i][`${xAxis}`])
+            // console.log(dados_completo[i][`${yAxis}`])
+        };
+
+        console.log(dados_grafico)
         
 
-//         var data = new google.visualization.DataTable();
-//         data.addColumn('datetime', 'Time');
-//         data.addColumn('number', 'Velocidade');
+        var data = new google.visualization.DataTable();
+
+        if (xAxis == "data_hora" || yAxis == "data_hora") {
+            data.addColumn(`datetime`, `${xAxis}`);
+            data.addColumn(`number`, `${yAxis}`);
+        } else {
+            data.addColumn(`number`, `${xAxis}`);
+            data.addColumn(`number`, `${yAxis}`);
+        };
   
-//         // data.addRows([
-//         //   [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-//         //   [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-//         //   [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-//         //   [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-//         //   [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-//         //   [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-//         //   [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-//         //   [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-//         //   [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-//         //   [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-//         //   [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-//         //   [66, 70], [67, 72], [68, 75], [69, 80]
-//         // ]);
+        // data.addRows([
+        //   [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
+        //   [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
+        //   [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+        //   [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+        //   [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+        //   [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+        //   [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+        //   [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+        //   [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+        //   [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+        //   [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+        //   [66, 70], [67, 72], [68, 75], [69, 80]
+        // ]);
 
           
-//         data.addRows(dados_grafico);
+        data.addRows(dados_grafico);
   
-//         var options = {
-//           hAxis: {
-//             title: 'Time'
-//           },
-//           vAxis: {
-//             title: 'Velocidade'
-//           },
-//           explorer: {
-//             actions: ['dragToZoom', 'rightClickToReset'],
-//             axis: 'horizontal',
-//             keepInBounds: true,
-//             maxZoomIn: 10
-//           }
-//         };
+        var options = {
+          hAxis: {
+            title: `${xAxis}`
+          },
+          vAxis: {
+            title: `${yAxis}`
+          },
+          explorer: {
+            actions: ['dragToZoom', 'rightClickToReset'],
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10
+          }
+        };
   
-//         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-  
-//         chart.draw(data, options);
-//     }
-// }
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
+
+        chart.draw(data, options);
+        chart2.draw(data, options);
+
+    }
+}
+
+// Abrir a opções buscar os dados e de filtros ao clicar no botão
+const lerMaisBtn = document.getElementById('toggleButton');
+const conteudo = document.getElementById('content-botao');
+
+lerMaisBtn.addEventListener('click', function() {
+  conteudo.classList.toggle('conteudo-visivel');
+});
