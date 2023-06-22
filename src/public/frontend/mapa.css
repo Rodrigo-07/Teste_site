@@ -114,6 +114,7 @@ header{
 
 }
 
+
 /* #graficoModal {
   width: 9000px;
 } */
@@ -139,7 +140,7 @@ header{
     margin-left: 1.5%;
   }
   .form-select{
-    width: 100%;
+    width: 85%;
   }
 
   #valueSelection {
@@ -156,6 +157,10 @@ header{
 }
 
 @media (min-width: 999px) {
+  .form-select{
+    width: 100%;
+  }
+
   #select-viagem {
     width: 80%;
   }

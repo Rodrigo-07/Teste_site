@@ -104,6 +104,7 @@
            " style=" white-space: nowrap;">
              Pico
            </label>
+           <br>
               </div>
              <div class="form-check form-check-inline" >
                <input class="form-check-input" type="checkbox" value="E" id="vagaoE">
@@ -300,7 +301,7 @@
 
             <div class="selecao-axis">
               <div class="axis">
-            <label for="variableSelection">X-Axis:</label>
+            <label for="variableSelection">Eixo X:</label>
             <select id="grafico-xAxis" class="form-select" aria-label="Default select example">
               <option value="none">Nenhuma</option>
               <option value="data_hora">Tempo</option>
@@ -312,8 +313,8 @@
               </div>
 
             <div class="axis">
-            <label for="variableSelection">Y-Axis:</label>
-            <select id="grafico-yAxis" class="form-select" aria-label="Default select example" style="width: 10vw;">
+            <label for="variableSelection">Eixo Y:</label>
+            <select id="grafico-yAxis" class="form-select" aria-label="Default select example">
               <option value="none">Nenhuma</option>
               <option value="data_hora">Tempo</option>
               <option value="velocidade">Velocidade</option>
@@ -331,10 +332,11 @@
 
             <br> 
 
-              <!--Div that will hold the pie chart-->
+              <!--Div que vai receber o grafico de linhas-->
               <h3>Grafico de linhas</h3>
               <div id="chart_div" style="width: 100%;"></div>
               <br>  
+               <!--Div que vai receber o grafico de dispersão-->
               <h3>Grafico de dispersão</h3>
               <div id="chart_div2" style="width: 100%;"></div>
 

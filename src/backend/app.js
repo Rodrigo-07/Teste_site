@@ -110,7 +110,7 @@ app.get('/choque2', (req, res) => {
 app.get('/pico', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     var id_pico = req.query.id;
-    var sql = `SELECT * FROM Pico WHERE id_viagem=${req.query.id_viagem} LIMIT 100;`;
+    var sql = `SELECT * FROM Pico WHERE id_viagem=${req.query.id_viagem} ORDER BY data_hora ASC LIMIT 100;`;
     console.log(sql)
     db.all(sql, [], (err, rows) => {
         if (err) {

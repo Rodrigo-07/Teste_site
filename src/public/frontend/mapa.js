@@ -1,10 +1,12 @@
 // Variáveis para guardar os valores da seleção de viagem
 var viagem_n = $("#select-viagem").val();
 
+// Quando o documento estiver pronto, o modal de tutorial é aberto
 $(document).ready(function() {
     $('#modal-tutorial-mapa').modal('show');
   });
 
+// Quando o botão de ajuda for clicado, o modal de tutorial é aberto
 $('#helpButton').on('click', function() {
     $('#modal-tutorial-mapa').modal('show');
 });
@@ -12,6 +14,7 @@ $('#helpButton').on('click', function() {
 
 console.log(viagem_n);
 
+// Detectar alguma mudança no select de viagem
 $(document).on('change', '#select-viagem', function() {
     viagem_n = parseInt($("#select-viagem").val());
     console.log(viagem_n);
@@ -70,8 +73,8 @@ const polylines_pico = []; // Array para guardar as linhas do mapa
 
 // CHOQUE 1
 
+// Variável para guardar os dados que vão ser utilizados na geração do gráfico
 var dados_completo = [];
-
 
 // Função para buscar os dados do banco de dados
 function buscar_dados() {
@@ -79,10 +82,8 @@ function buscar_dados() {
     // Habilitar o botão de gerar gráfico
     $('#botao-grafico').prop('disabled', false);
 
+    // Remove os dados do array para não haver sobreposição 
     dados_completosplice = dados_completo.splice(0);
-    // for (var l = 0; l < markers.length; l++) {
-    //     map.removeLayer(markers[j]);
-    // }
 
     // Remover os markers do mapa
     for (var j = 0; j < markers.length; j++) {
@@ -95,9 +96,20 @@ function buscar_dados() {
     }
 
 
+    // Detecta se no minino uma viagem está selecionada
+
     if (viagem_n == "null") {
-        console.log("Selecione uma viagem")
+        alert("Selecione uma viagem");
     }
+
+    if ($('#choque1').is(':checked') == false && $('#choque2').is(':checked') == false && $('#pico').is(':checked') == false) {
+        alert("Selecione pelo menos um tipo de choque");
+    }
+
+    if ($('#vagaoF').is(':checked') == false && $('#vagaoE').is(':checked') == false) {
+        alert("Selecione pelo menos um tipo de vagão");
+    }
+
 
     // Se o checkbox do choque 1 estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#choque1').is(':checked') == true ) {
@@ -176,6 +188,7 @@ function buscar_dados() {
                 }
             });
             
+            // For para adcionar os dados filtrados no array que vai ser utilizado para gerar o gráfico
             for (let i = 0; i < Dados.length; i++) {
                 dados_completo.push(Dados[i]);
             }
@@ -191,8 +204,10 @@ function buscar_dados() {
                 $('#choque1').prop( "checked", false );
                 $('#choque2').prop( "checked", false );
                 $('#pico').prop( "checked", false );
-            } else if (Dados.length == 0) {
-                alert("Não há dados para essa viagem");
+                $('#vagaoE').prop( "checked", false );
+                $('#vagaoF').prop( "checked", false );
+            } else if (Dados.length == 0 || $('#vagaoF').is(':checked') == false && $('#vagaoE').is(':checked') == false) {
+                alert("Não há dados do choque 1 com esses filtros para essa viagem.");
             }
 
             // // Criar o mapa com o centro nos valores da latitudes e longitudes da row do meio dos dados
@@ -364,6 +379,7 @@ var customIcon = L.icon({
                     }
                 });
                 
+                // For para adcionar os dados filtrados no array que vai ser utilizado para gerar o gráfico
                 for (let i = 0; i < Dados1.length; i++) {
                     dados_completo.push(Dados1[i]);
                 }
@@ -378,9 +394,10 @@ var customIcon = L.icon({
                 $('#choque1').prop( "checked", false );
                 $('#choque2').prop( "checked", false );
                 $('#pico').prop( "checked", false );
-
-            } else if (Dados1.length == 0) {
-                alert("Não há dados para essa viagem");
+                $('#vagaoE').prop( "checked", false );
+                $('#vagaoF').prop( "checked", false );
+            } else if (Dados1.length == 0 || $('#vagaoF').is(':checked') == false && $('#vagaoE').is(':checked') == false) {
+                alert("Não há dados do choque 2 com esses filtros para essa viagem.");
             }
 
             console.log(Dados1);
@@ -553,6 +570,7 @@ var customIcon = L.icon({
                 }
             });
 
+            // For para adcionar os dados filtrados no array que vai ser utilizado para gerar o gráfico
             for (let i = 0; i < Dados_pico.length; i++) {
                 dados_completo.push(Dados_pico[i]);
             }
@@ -567,9 +585,11 @@ var customIcon = L.icon({
                 $('#choque1').prop( "checked", false );
                 $('#choque2').prop( "checked", false );
                 $('#pico').prop( "checked", false );
-            } else if (Dados_pico.length == 0) {
-                alert("Não há dados para essa viagem");
-            }
+                $('#vagaoE').prop( "checked", false );
+                $('#vagaoF').prop( "checked", false );
+            } else if (Dados_pico.length == 0 || $('#vagaoF').is(':checked') == false && $('#vagaoE').is(':checked') == false) {
+                alert("Não há dados do pico com esses filtros para essa viagem.");
+            } 
 
             console.log(Dados_pico);
 
@@ -697,30 +717,32 @@ $('#showToastBtn').click(function() {
 ////////////////////// GRÁFICO //////////////////////	
 
 function desenhargrafico() {
-    // Load the Visualization API and the corechart package.
+    // Carrega a visualização API e os pacotes do google para os gráficos
     google.charts.load('current', {packages: ['corechart', 'line']});
 
-    // Set a callback to run when the Google Visualization API is loaded.
+    // Callback que cria e preenche uma tabela de dados,
     google.charts.setOnLoadCallback(drawChart);
 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
+    // Callback que cria e preenche uma tabela de dados,
+    // instância o gráfic passa os dados e desenha isso
     function drawChart() {
 
+        // Variáveis que guardam os selecionados pelo usuário do valores dos eixos X e Y
         var xAxis = $("#grafico-xAxis").val();
         var yAxis = $("#grafico-yAxis").val();
 
         console.log(xAxis);
         console.log(yAxis);
 
+        // Variável que guarda para gerar os gráficos
         var dados_grafico = [];
 
         console.log(dados_completo)
 
+        // Passa os dados que foram gerados na criação dos pontos do mapa para a array dos gráficos
         for (var i = 0; i < dados_completo.length; i++) {
-            console.log("Teste")
 
+            // Condicional para verificar se os eixos selecionados são as datas
             if (xAxis == "data_hora") {
                 const date_serial_number = dados_completo[i]["data_hora"];
                 const final_date = date_converter(date_serial_number); 
@@ -732,18 +754,14 @@ function desenhargrafico() {
             } else {
                 dados_grafico.push([dados_completo[i][`${xAxis}`], dados_completo[i][`${yAxis}`]]);
             }
-          
-
-            // dados_grafico.push([new Date(final_date), dados_completo[i]["act"]]);
-            // console.log(dados_completo[i][`${xAxis}`])
-            // console.log(dados_completo[i][`${yAxis}`])
         };
 
         console.log(dados_grafico)
         
-
+        // Cria a tabela de dados
         var data = new google.visualization.DataTable();
 
+        // Adiciona as colunas
         if (xAxis == "data_hora") {
             data.addColumn(`datetime`, `${xAxis}`);
             data.addColumn(`number`, `${yAxis}`);
@@ -755,24 +773,10 @@ function desenhargrafico() {
             data.addColumn(`number`, `${yAxis}`);
         };
   
-        // data.addRows([
-        //   [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-        //   [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-        //   [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-        //   [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-        //   [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-        //   [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-        //   [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-        //   [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-        //   [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-        //   [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-        //   [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-        //   [66, 70], [67, 72], [68, 75], [69, 80]
-        // ]);
-
-          
+        // Adiciona as linhas que são os arquivos do gráfico  
         data.addRows(dados_grafico);
-  
+        
+        // Opções de visualização do gráfico
         var options = {
           hAxis: {
             title: `${xAxis}`
@@ -787,10 +791,12 @@ function desenhargrafico() {
             maxZoomIn: 10
           }
         };
-  
+        
+        // Coloca o gráfico gerado no elemento nas suas respectivas divs
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
 
+        // Desenha as informações nos gráficos
         chart.draw(data, options);
         chart2.draw(data, options);
 
