@@ -84,7 +84,8 @@ app.get('/choque1', (req, res) => {
 
 app.get('/choque1All', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    var sql = `SELECT * FROM Choque1 ORDER BY data_hora ASC`;
+    var sql = `SELECT * FROM Choque1 WHERE id_viagem=${req.query.id_viagem} ORDER BY data_hora ASC`;
+    console.log(sql)
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
@@ -96,7 +97,8 @@ app.get('/choque1All', (req, res) => {
 app.get('/choque2', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     var id_choque2 = req.query.id;
-    var sql = `SELECT * FROM Choque2`;
+    var sql = `SELECT * FROM Choque2 WHERE id_viagem=${req.query.id_viagem} ORDER BY data_hora ASC`;
+    console.log(sql)
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
@@ -108,7 +110,8 @@ app.get('/choque2', (req, res) => {
 app.get('/pico', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     var id_pico = req.query.id;
-    var sql = `SELECT * FROM Pico WHERE id_pico <= 60`;
+    var sql = `SELECT * FROM Pico WHERE id_viagem=${req.query.id_viagem} LIMIT 100;`;
+    console.log(sql)
     db.all(sql, [], (err, rows) => {
         if (err) {
             throw err;

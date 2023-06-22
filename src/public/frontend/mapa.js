@@ -102,7 +102,7 @@ function buscar_dados() {
     // Se o checkbox do choque 1 estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#choque1').is(':checked') == true ) {
 
-        $("#choque1").val("/choque1All");
+        $("#choque1").val(`/choque1All?id_viagem=${viagem_n}`);
         choque1_url = $("#choque1").val();
         
         const url = `${choque1_url}`;
@@ -294,7 +294,7 @@ var customIcon = L.icon({
     // Se o checkbox do choque 2 estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#choque2').is(':checked') == true ) {
 
-        $("#choque2").val("/choque2");
+        $("#choque2").val(`/choque2?id_viagem=${viagem_n}`);
         choque2_url = $("#choque2").val();
         
         
@@ -479,7 +479,7 @@ var customIcon = L.icon({
     // Se o checkbox do pico estiver marcado, então o fetch para requição dos dados é chamado
     if ( $('#pico').is(':checked') == true ) {
 
-        $("#pico").val("/pico");
+        $("#pico").val(`/pico?id_viagem=${viagem_n}`);
         pico_url = $("#pico").val();
         
         
@@ -721,10 +721,14 @@ function desenhargrafico() {
         for (var i = 0; i < dados_completo.length; i++) {
             console.log("Teste")
 
-            if (xAxis == "data_hora" || yAxis == "data_hora") {
+            if (xAxis == "data_hora") {
                 const date_serial_number = dados_completo[i]["data_hora"];
                 const final_date = date_converter(date_serial_number); 
                 dados_grafico.push([new Date(final_date), dados_completo[i][`${yAxis}`]]);
+            } else if (yAxis == "data_hora") {
+                const date_serial_number = dados_completo[i]["data_hora"];
+                const final_date = date_converter(date_serial_number); 
+                dados_grafico.push([dados_completo[i][`${xAxis}`], new Date(final_date)]);
             } else {
                 dados_grafico.push([dados_completo[i][`${xAxis}`], dados_completo[i][`${yAxis}`]]);
             }
@@ -740,10 +744,13 @@ function desenhargrafico() {
 
         var data = new google.visualization.DataTable();
 
-        if (xAxis == "data_hora" || yAxis == "data_hora") {
+        if (xAxis == "data_hora") {
             data.addColumn(`datetime`, `${xAxis}`);
             data.addColumn(`number`, `${yAxis}`);
-        } else {
+        } else if (yAxis == "data_hora") {
+            data.addColumn(`number`, `${xAxis}`);
+            data.addColumn(`datetime`, `${yAxis}`);
+        }else {
             data.addColumn(`number`, `${xAxis}`);
             data.addColumn(`number`, `${yAxis}`);
         };

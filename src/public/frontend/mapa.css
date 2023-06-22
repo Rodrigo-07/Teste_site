@@ -4,7 +4,9 @@ html, body {
   padding: 0;
   overflow: hidden;
 }
-
+header{
+  z-index: 2;
+}
   
 #map {
   z-index: 0;
@@ -25,6 +27,7 @@ html, body {
 
 }
 .button-container{
+  z-index: 1;
   background-color: rgba(255, 255, 255, 0.806);
   box-shadow: 0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5);
   border: 0px;
@@ -41,21 +44,6 @@ html, body {
   position:relative;
   left:8vw;
 }
-@media (max-width: 999px) {
-
-  .map-controls {
-    margin-left: calc(100% - vw);
-    display:block;
-  }
-  .button-container{
-    width: 40vw;
-    margin-left: calc(100% - 42vw);
-
-  }
-  .seta{
-    margin-right: 8vw;
-  }
-}
 
 .legenda {
   background-color: rgba(127 123 123 / 0.47);
@@ -67,6 +55,7 @@ html, body {
   padding-top: 1vh;
   top: 80%; 
   white-space:nowrap; 
+  width: 22vw;
 }
 
 .legenda-item {
@@ -122,8 +111,64 @@ html, body {
 
 #myToast {
   z-index: 5; /* Adjust the z-index value as needed */
+
 }
 
 /* #graficoModal {
   width: 9000px;
 } */
+@media (max-width: 999px) {
+
+  .map-controls {
+    margin-left: calc(100% - 62vw);
+    display:block;
+    width: 60vw;
+  }
+  .button-container{
+    width: 50vw;
+    height: 5vh;
+    margin-left: calc(100% - 52vw);
+
+  }
+  .seta{
+    margin-right: 8vw;
+  }
+  .legenda{
+    width: 30vw;
+    top: 78.5%;
+    margin-left: 1.5%;
+  }
+  .form-select{
+    width: 100%;
+  }
+
+  #valueSelection {
+    width: 40vw;
+  }
+
+  #thresholdValue {
+    width: 40vw;
+  }
+
+  #variableSelection {
+    width: 40vw;
+  }
+}
+
+@media (min-width: 999px) {
+  #select-viagem {
+    width: 80%;
+  }
+
+  #valueSelection {
+    width: 15vw;
+  }
+
+  #thresholdValue {
+    width: 15vw;
+  }
+
+  #variableSelection {
+    width: 15vw;
+  }
+}
